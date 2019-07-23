@@ -1,0 +1,216 @@
+﻿  Bullet.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Physic.h(4,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(23,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(23,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(32,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(32,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(48,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(48,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(57,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(57,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(95,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(95,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(112,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(112,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(121,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+  ContentManagement.cpp
+  EnemyAI.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Bullet.cpp(121,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Physic.h(4,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(54,92): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(54,76): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(64,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(64,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(81,92): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(81,76): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(90,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(90,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(146,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+  Engine.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\EnemyAI.cpp(146,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_video.h(90): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(5,18): warning C4099:  'SDL_Surface': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_surface.h(69): message :  see declaration of 'SDL_Surface'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(10,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(11,19): warning C4099:  'SDL_Renderer': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(122): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Time.h(61,25): warning C4244:  'initializing': conversion from 'float' to 'clock_t', possible loss of data
+  Helper.cpp
+  Input.cpp
+  main.cpp
+  MainScene.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Time.h(66,37): warning C4244:  'initializing': conversion from 'float' to 'clock_t', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14,14): warning C4099:  'SRect': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_surface.h(70,1): warning C4099:  'SDL_Surface': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_surface.h(69): message :  see declaration of 'SDL_Surface'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_video.h(90,37): warning C4099:  'SDL_Window': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(10): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(121,20): warning C4099:  'SDL_Renderer': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(11): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(122,41): warning C4099:  'SDL_Renderer': type name first seen using 'class' now seen using 'struct'
+  Physic.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(121): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14,14): warning C4099:  'SRect': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+  Player.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_video.h(90): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(5,18): warning C4099:  'SDL_Surface': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_surface.h(69): message :  see declaration of 'SDL_Surface'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(8,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(10,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(11,19): warning C4099:  'SDL_Renderer': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(122): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Physic.h(4,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(8): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(81,102): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(81,86): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(90,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(90,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(112,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(112,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(121,89): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(121,73): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(183,103): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(183,87): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(192,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(192,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(218,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(218,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(227,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+  Renderer.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Player.cpp(227,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(10,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_video.h(90): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(11,19): warning C4099:  'SDL_Renderer': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(122): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Texture.h(4,18): warning C4099:  'SDL_Texture': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(128): message :  see declaration of 'SDL_Texture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14,14): warning C4099:  'SRect': type name first seen using 'class' now seen using 'struct'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.cpp(83,52): warning C4244:  '-=': conversion from 'float' to 'int', possible loss of data
+  Texture.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.cpp(84,53): warning C4244:  '-=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Texture.h(4,18): warning C4099:  'SDL_Texture': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(128): message :  see declaration of 'SDL_Texture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_video.h(90): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(5,18): warning C4099:  'SDL_Surface': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_surface.h(69): message :  see declaration of 'SDL_Surface'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(10,17): warning C4099:  'SDL_Window': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Engine.h(4): message :  see declaration of 'SDL_Window'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(11,19): warning C4099:  'SDL_Renderer': type name first seen using 'struct' now seen using 'class'
+  TexturedEntity.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\include\SDL_render.h(122): message :  see declaration of 'SDL_Renderer'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Renderer.h(8,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.cpp(16,18): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.cpp(17,18): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.cpp(34,23): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+  Time.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.cpp(35,23): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Time.h(61,25): warning C4244:  'initializing': conversion from 'float' to 'clock_t', possible loss of data
+  World.cpp
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Time.h(66,37): warning C4244:  'initializing': conversion from 'float' to 'clock_t', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(58,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(62,41): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(62,19): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(118,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(118,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(141,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(141,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(161,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(161,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(181,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\SDL2Engine\World.cpp(181,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+  SDL2Engine.vcxproj -> C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Build\bin\x86\Debug\SDL2Engine.exe
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\lib\x86\._SDL2.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2\lib\x86\SDL2.dll
+  2 Datei(en) kopiert
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._libjpeg-9.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._libpng16-16.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._libtiff-5.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._libwebp-7.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._SDL2_image.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\._zlib1.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\libjpeg-9.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\libpng16-16.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\libtiff-5.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\libwebp-7.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\SDL2_image.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_image\lib\x86\zlib1.dll
+  12 Datei(en) kopiert
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\._libfreetype-6.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\._SDL2_ttf.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\._zlib1.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\libfreetype-6.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\SDL2_ttf.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_ttf\lib\x86\zlib1.dll
+  6 Datei(en) kopiert
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libFLAC-8.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libmodplug-1.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libmpg123-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libogg-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libvorbis-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._libvorbisfile-3.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\._SDL2_mixer.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libFLAC-8.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libmodplug-1.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libmpg123-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libogg-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libvorbis-0.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\libvorbisfile-3.dll
+  C:\Users\mario\Desktop\Version\v6o5\SDL2Engine\Library\SDL2_mixer\lib\x86\SDL2_mixer.dll
+  14 Datei(en) kopiert
