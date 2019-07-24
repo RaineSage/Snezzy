@@ -71,6 +71,12 @@ public:
 	inline SRect GetRect() { return m_rect; }
 
 	/// <summary>
+	/// get positon of entity
+	/// </summary>
+	/// <returns>rect of position</returns>
+	inline SRect GetPosition() { return SRect(m_rect.w, m_rect.h, m_position.X, m_position.Y); }
+
+	/// <summary>
 	/// set rect of texture
 	/// </summary>
 	/// <param name="_rect">rect to set</param>

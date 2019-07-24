@@ -11,6 +11,9 @@ void GEnemyAI::Update(float _deltaTime)
 	if (!_deltaTime)
 		return;
 
+	// check enemy is moveable
+	bool moveable = true;
+
 	if (m_type == SHOOTER) 
 	{
 		m_time += _deltaTime;
@@ -29,7 +32,7 @@ void GEnemyAI::Update(float _deltaTime)
 			pBullet->SetTag("Bullet");
 
 			// optional: force
-			// pBullet->AddForce(2.0f);
+			pBullet->AddForce(m_force);
 
 			// add bullet to ctm
 			CTM->AddPersistentEntity(pBullet);
@@ -54,7 +57,15 @@ void GEnemyAI::Update(float _deltaTime)
 					if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
 						// change walk direction
 						m_movement.X = -(m_movement.X);
-						
+
+				// if current entity is an player
+				if(pEntity->GetTag() == "Player")
+					if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
+						// set not moveable and stop checking entities
+						moveable = false;
+						break;
+					}						
 			}
 
 			// if current entity collision type is static
@@ -81,6 +92,15 @@ void GEnemyAI::Update(float _deltaTime)
 					if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
 						// change walk direction
 						m_movement.X = -(m_movement.X);
+
+				// if current entity is an player
+				if (pEntity->GetTag() == "Player")
+					if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
+						// set not moveable and stop checking entities
+						moveable = false;
+						break;
+					}
 			}
 
 			// if current entity collision type is static
@@ -96,7 +116,8 @@ void GEnemyAI::Update(float _deltaTime)
 		}
 
 		// if still moveable set new position
-		m_position = nextPosition;
+		if(moveable)
+			m_position = nextPosition;
 
 		// update parent
 		CTexturedEntity::Update(_deltaTime);

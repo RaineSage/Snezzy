@@ -6,6 +6,7 @@
 #include "TexturedEntity.h"
 #include "Input.h"
 #include "World.h"
+#include "Message.h"
 #pragma endregion
 
 #pragma region public override function
@@ -26,6 +27,10 @@ void GMainScene::Init()
 	// m_pEnemy = new CTexturedEntity(SVector2(0.0f, 0.0f), SVector2(64.0, 64.0f), "Texture/Character/Enemy/T_Enemy.bmp");
 	// m_pEnemy->SetInWorld(false);
 	// CTM->AddPersistentEntity(m_pEnemy);
+
+	CMessage* m_pMsg = new CMessage("Texture/Fonts/arial.ttf", 12, "Hallo", { 255, 0, 0, 255 }, SVector2(0.0f, 0.0f), SVector2(64.0, 64.0f));
+	m_pMsg->SetInWorld(false);
+	CTM->AddPersistentEntity(m_pMsg);
 }
 
 // update every frame

@@ -21,6 +21,8 @@ public:
 
 	void SetShotInterval(float _shotInter) { m_shotInter = _shotInter; }
 
+	void SetForce(float _force) { m_force = _force; }
+
 protected:
 	SVector2 m_movement = SVector2();
 	EnemyTypes m_type = WALKER;
@@ -31,5 +33,6 @@ protected:
 	float m_jumpTime = 1.0f;
 
 	float m_shotInter = 1.0f;
+	float m_force = 100.0f;
 };
 

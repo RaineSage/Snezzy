@@ -78,9 +78,17 @@ void GPlayer::Update(float _deltaTime)
 			// if current entity is an enemy
 			if (pEntity->GetTag() == "Enemy")
 				// if rect of next frame collides with enemy rect
-				if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+				if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+				{
 					// remove enemy
 					CTM->RemoveEntity(pEntity);
+				}
+				else if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+				{
+					// set not moveable and stop checking entities
+					moveable = false;
+					break;
+				}
 		}
 
 		// if current entity collision type is static
@@ -109,9 +117,17 @@ void GPlayer::Update(float _deltaTime)
 			// if current entity is an enemy
 			if (pEntity->GetTag() == "Enemy")
 				// if rect of next frame collides with enemy rect
-				if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+				if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+				{
 					// remove enemy
 					CTM->RemoveEntity(pEntity);
+				}
+				else if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+				{
+					// set not moveable and stop checking entities
+					moveable = false;
+					break;
+				}
 		}
 
 		// if current entity collision type is static
@@ -149,7 +165,7 @@ void GPlayer::Update(float _deltaTime)
 		// disable jump
 		m_jump = false;
 	}
-	
+
 	// if not jumping and still moveable
 	else if (moveable)
 	{
@@ -180,9 +196,21 @@ void GPlayer::Update(float _deltaTime)
 				// if current entity is an enemy
 				if (pEntity->GetTag() == "Enemy")
 					// if rect of next frame collides with enemy rect
-					if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+					if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
 						// remove enemy
 						CTM->RemoveEntity(pEntity);
+					}
+					else if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
+						// set not moveable and stop checking entities
+						moveable = false;
+
+						// enable jump
+						m_jump = true;
+
+						break;
+					}
 			}
 
 			// if current entity collision type is static
@@ -196,7 +224,10 @@ void GPlayer::Update(float _deltaTime)
 
 					// reset fall time and stop checking entities
 					m_fallTime = 0.0f;
+
+					// enable jump
 					m_jump = true;
+
 					break;
 				}
 			}
@@ -215,9 +246,21 @@ void GPlayer::Update(float _deltaTime)
 				// if current entity is an enemy
 				if (pEntity->GetTag() == "Enemy")
 					// if rect of next frame collides with enemy rect
-					if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+					if (m_attack && CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
 						// remove enemy
 						CTM->RemoveEntity(pEntity);
+					}
+					else if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
+					{
+						// set not moveable and stop checking entities
+						moveable = false;
+
+						// enable jump
+						m_jump = true;
+
+						break;
+					} 
 			}
 
 			// if current entity collision type is static
@@ -231,7 +274,10 @@ void GPlayer::Update(float _deltaTime)
 
 					// reset fall time and stop checking entities
 					m_fallTime = 0.0f;
+
+					// enable jump
 					m_jump = true;
+
 					break;
 				}
 			}
