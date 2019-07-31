@@ -9,7 +9,11 @@ class GEnemyAI : public CTexturedEntity
 {
 public:
 	GEnemyAI(SVector2 _pos, SVector2 _size, const char* _pFileName)
-		: CTexturedEntity(_pos, _size, _pFileName) {m_movement.X = -1.0f;}
+		: CTexturedEntity(_pos, _size, _pFileName) 
+	{
+		m_movement.X = -1.0f; 
+		m_startY = m_position.Y;
+	}
 
 	virtual void Update(float _deltaTime) override;
 
@@ -34,5 +38,6 @@ protected:
 
 	float m_shotInter = 1.0f;
 	float m_force = 100.0f;
+	float m_startY = 0.0f;
 };
 

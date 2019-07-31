@@ -9,77 +9,56 @@ C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(77,88): warning C4
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(77,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Physic.h(4,12): warning C4099:  'SRect': type name first seen using 'struct' now seen using 'class'
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Rect.h(14): message :  see declaration of 'SRect'
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(57,92): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(57,76): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(63,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(63,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(75,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(75,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(92,92): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(92,76): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(69,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(69,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(81,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(81,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(98,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(98,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(110,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(110,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(167,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-  World.cpp
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(167,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Rect.h(30,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Rect.h(30,31): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Rect.h(30,23): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\Rect.h(30,14): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(43,1): warning C4150:  deletion of pointer to incomplete type 'CTexture'; no destructor called
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(10): message :  see declaration of 'CTexture'
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(77,88): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\TexturedEntity.h(77,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(58,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(62,41): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(62,19): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(118,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(118,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(141,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(141,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(161,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(161,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(181,42): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\World.cpp(181,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-  SDL2Engine.vcxproj -> C:\Users\mario\Desktop\SDL2Engine\Build\bin\x86\Debug\SDL2Engine.exe
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2\lib\x86\._SDL2.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2\lib\x86\SDL2.dll
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(104,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(104,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(116,91): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(116,75): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(173,90): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mario\Desktop\SDL2Engine\SDL2Engine\EnemyAI.cpp(173,74): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+  SDL2Engine.vcxproj -> C:\Users\mario\Desktop\SDL2Engine\Build\bin\x64\Debug\SDL2Engine.exe
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2\lib\x64\._SDL2.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2\lib\x64\SDL2.dll
   2 Datei(en) kopiert
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._libjpeg-9.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._libpng16-16.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._libtiff-5.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._libwebp-7.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._SDL2_image.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\._zlib1.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\libjpeg-9.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\libpng16-16.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\libtiff-5.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\libwebp-7.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\SDL2_image.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x86\zlib1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._libjpeg-9.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._libpng16-16.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._libtiff-5.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._libwebp-7.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._SDL2_image.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\._zlib1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\libjpeg-9.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\libpng16-16.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\libtiff-5.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\libwebp-7.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\SDL2_image.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_image\lib\x64\zlib1.dll
   12 Datei(en) kopiert
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\._libfreetype-6.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\._SDL2_ttf.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\._zlib1.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\libfreetype-6.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\SDL2_ttf.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x86\zlib1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\._libfreetype-6.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\._SDL2_ttf.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\._zlib1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\libfreetype-6.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\SDL2_ttf.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_ttf\lib\x64\zlib1.dll
   6 Datei(en) kopiert
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libFLAC-8.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libmodplug-1.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libmpg123-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libogg-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libvorbis-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._libvorbisfile-3.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\._SDL2_mixer.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libFLAC-8.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libmodplug-1.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libmpg123-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libogg-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libvorbis-0.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\libvorbisfile-3.dll
-  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x86\SDL2_mixer.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libFLAC-8.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libmodplug-1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libmpg123-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libogg-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libvorbis-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._libvorbisfile-3.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\._SDL2_mixer.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libFLAC-8.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libmodplug-1.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libmpg123-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libogg-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libvorbis-0.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\libvorbisfile-3.dll
+  C:\Users\mario\Desktop\SDL2Engine\Library\SDL2_mixer\lib\x64\SDL2_mixer.dll
   14 Datei(en) kopiert

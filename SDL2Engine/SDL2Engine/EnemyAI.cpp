@@ -14,6 +14,12 @@ void GEnemyAI::Update(float _deltaTime)
 	// check enemy is moveable
 	bool moveable = true;
 
+	// prevented glitching in floor
+	if (m_type == WALKER)
+	{
+		m_position.Y = m_startY;
+	}
+
 	if (m_type == SHOOTER) 
 	{
 		m_time += _deltaTime;
@@ -52,9 +58,9 @@ void GEnemyAI::Update(float _deltaTime)
 			if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::DYNAMIC)
 			{
 				// if current entity is an enemy
-				if (pEntity->GetTag() == "Enemy")
+				if (pEntity != this && pEntity->GetTag() == "Enemy")
 					// if rect of next frame collides with enemy rect
-					if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+					if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
 						// change walk direction
 						m_movement.X = -(m_movement.X);
 
@@ -72,7 +78,7 @@ void GEnemyAI::Update(float _deltaTime)
 			else if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::STATIC)
 			{
 				// if rect of next frame collides with entity rect
-				if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+				if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
 				{
 					// change walk direction
 					m_movement.X = -(m_movement.X);
@@ -87,9 +93,9 @@ void GEnemyAI::Update(float _deltaTime)
 			if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::DYNAMIC)
 			{
 				// if current entity is an enemy
-				if (pEntity->GetTag() == "Enemy")
+				if (pEntity != this && pEntity->GetTag() == "Enemy")
 					// if rect of next frame collides with enemy rect
-					if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+					if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
 						// change walk direction
 						m_movement.X = -(m_movement.X);
 
@@ -107,7 +113,7 @@ void GEnemyAI::Update(float _deltaTime)
 			else if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::STATIC)
 			{
 				// if rect of next frame collides with entity rect
-				if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+				if (CPhysic::RectRectCollisionX(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
 				{
 					// change walk direction
 					m_movement.X = -(m_movement.X);
@@ -130,7 +136,7 @@ void GEnemyAI::Update(float _deltaTime)
 			if (m_time >= m_jumpTime)
 			{
 				// set fall time negative one
-				m_fallTime = -0.5f;
+				m_fallTime = -0.6f;
 
 				// calculate fall distance
 				float fall = GRAVITY * PIXEL_PER_METER * -(m_fallTime * m_fallTime) * _deltaTime;
@@ -164,7 +170,7 @@ void GEnemyAI::Update(float _deltaTime)
 			if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::STATIC)
 			{
 				// if rect of next frame collides with entity rect
-				if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetRect()))
+				if (CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPosition.X, nextPosition.Y), ((CTexturedEntity*)pEntity)->GetPosition()))
 				{
 					// reset fall time and stop checking entities
 					m_fallTime = 0.0f;
