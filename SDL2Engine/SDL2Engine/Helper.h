@@ -23,3 +23,7 @@ string GetParentDirectory(string _path, int _depth = 1);
 /// <param name="_depth">depth to go back in folders</param>
 /// <returns>complete asset path as string</returns>
 string GetAssetPath(const char* _pPath, int _depth);
+
+string LoadStringFromFile(const char* _pFileName);
+
+bool SaveStringToFile(string _text, const char* _pFileName);

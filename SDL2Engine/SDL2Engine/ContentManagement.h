@@ -6,7 +6,10 @@
 
 #pragma region project include
 #include "Entity.h"
+#include "Vector2.h"
 #pragma endregion
+
+class CMoveEntity;
 
 #pragma region using
 using namespace std;
@@ -82,12 +85,20 @@ public:
 	/// <param name="_pEntity">entity reference to add</param>
 	inline void AddPersistentEntity(CEntity* _pEntity) { AddEntity(_pEntity, m_pPersistentEntities); }
 
+	inline list<CEntity*> GetCollisionEntities() { return m_pColEntities; }
+
 	/// <summary>
 	/// add entity to remove entities
 	/// </summary>
 	/// <param name="_pEntity">entity reference to remove</param>
 	inline void RemoveEntity(CEntity* _pEntity) { m_pRemoveEntities.push_back(_pEntity); }
 #pragma endregion
+
+	void SetupCollision(int _width);
+
+	void Clear();
+
+	list<CEntity*> GetCollisionRowColumn(SVector2 _pos);
 
 private:
 #pragma region private variable
@@ -106,6 +117,12 @@ private:
 	/// </summary>
 	list<CEntity*> m_pPersistentEntities;
 
+	list<CMoveEntity*> m_pMoveEntities;
+
+	list<CEntity*> m_pColEntities;
+
+	list<list<CEntity*>> m_colRowColumn;
+
 	/// <summary>
 	/// list of all entities to remove next frame
 	/// </summary>
@@ -113,6 +130,10 @@ private:
 #pragma endregion
 
 private:
+	float m_colTimer = 0.0f;
+
+	float m_colCheckTime = 0.0f;
+
 #pragma region private function
 	/// <summary>
 	/// add entity to list

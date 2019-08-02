@@ -23,6 +23,9 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
+    <ClCompile Include="TexturedEntity.cpp">
+      <Filter>Engine\Entity</Filter>
+    </ClCompile>
     <ClCompile Include="ContentManagement.cpp">
       <Filter>Engine\Management\Content</Filter>
     </ClCompile>
@@ -35,17 +38,29 @@
     <ClCompile Include="Physic.cpp">
       <Filter>Engine\Physic</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyAI.cpp">
-      <Filter>Game\Entity\Enemys</Filter>
+    <ClCompile Include="MoveEntity.cpp">
+      <Filter>Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Engine\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEnemy.cpp">
+      <Filter>Game\Entity\Enemy\MoveEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Engine\Config</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Game\Entity\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Engine\Entity\Message</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturedEntity.cpp">
-      <Filter>Engine\Entity\Entitys</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,17 +124,29 @@
     <Filter Include="Engine\Config">
       <UniqueIdentifier>{c2ba8b38-615b-4565-881a-9253c483d05b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Entity\Enemys">
-      <UniqueIdentifier>{495deb70-2505-44f3-aead-8273a7f6a178}</UniqueIdentifier>
+    <Filter Include="Engine\Animation">
+      <UniqueIdentifier>{f5bdd84d-b3f0-486d-bbef-3c1db2f4152e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Font">
+      <UniqueIdentifier>{0c25f02a-db12-4d23-b705-50e8467868db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Mouse">
+      <UniqueIdentifier>{d520c1c8-eede-4f0f-8987-70d1567245f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Audio">
+      <UniqueIdentifier>{85d90e09-e532-4c50-855c-13a9f8858702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Management\Texture">
+      <UniqueIdentifier>{5340a578-ccc0-4e09-ac34-8b53806acd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entity\Enemy">
+      <UniqueIdentifier>{bca01b0e-19b4-4a90-812b-8ef3f075102c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entity\Enemy\MoveEnemy">
+      <UniqueIdentifier>{8a8a46b8-7e29-435a-86d7-ad1503cd0238}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Entity\Bullet">
-      <UniqueIdentifier>{ed817af5-e4b5-499a-b1b0-3b3f6ad74a08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Entity\Message">
-      <UniqueIdentifier>{f1e1d1b1-7ffe-453a-b2b9-4e72d992e73f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Entity\Entitys">
-      <UniqueIdentifier>{ace50b90-d151-4b9d-a7b4-3938edea763b}</UniqueIdentifier>
+      <UniqueIdentifier>{b192ebf3-c926-4142-97a0-ecf2cdd6ae86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +180,12 @@
     <ClInclude Include="Time.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedEntity.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
     <ClInclude Include="ContentManagement.h">
       <Filter>Engine\Management\Content</Filter>
     </ClInclude>
@@ -174,23 +207,44 @@
     <ClInclude Include="Config.h">
       <Filter>Engine\Config</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyAI.h">
-      <Filter>Game\Entity\Enemys</Filter>
+    <ClInclude Include="MoveEntity.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Engine\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Engine\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Music.h">
+      <Filter>Engine\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManagement.h">
+      <Filter>Engine\Management\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEnemy.h">
+      <Filter>Game\Entity\Enemy\MoveEnemy</Filter>
     </ClInclude>
     <ClInclude Include="EEnemyTypes.h">
-      <Filter>Game\Entity\Enemys</Filter>
+      <Filter>Game\Entity\Enemy\MoveEnemy</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Game\Entity\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Engine\Entity\Message</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Engine\Entity\Entitys</Filter>
-    </ClInclude>
-    <ClInclude Include="TexturedEntity.h">
-      <Filter>Engine\Entity\Entitys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

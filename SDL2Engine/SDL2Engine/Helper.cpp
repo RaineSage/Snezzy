@@ -1,3 +1,7 @@
+#pragma region system include
+#include <fstream>
+#pragma endregion
+
 #pragma region SDL2 include
 #include <SDL.h>
 #pragma endregion
@@ -31,4 +35,39 @@ string GetAssetPath(const char* _pPath, int _depth)
 
 	// return absolute asset path
 	return path;
+}
+
+string LoadStringFromFile(const char* _pFileName)
+{
+	string text = "";
+
+	ifstream file;
+	file.open(GetAssetPath(_pFileName, 4).c_str());
+
+	if(!file.is_open())
+		return "";
+
+	string line = "";
+
+	while (getline(file, line))
+		text.append(line).append("\n");
+
+	file.close();
+
+	return text;
+}
+
+bool SaveStringToFile(string _text, const char* _pFileName)
+{
+	ofstream file;
+	file.open(GetAssetPath(_pFileName, 4).c_str());
+
+	if (!file.is_open())
+		return false;
+
+	file << _text;
+
+	file.close();
+
+	return true;
 }

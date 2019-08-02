@@ -26,23 +26,4 @@ bool CPhysic::RectRectCollision(SRect _rectOne, SRect _rectTwo)
 	// if collision return true
  	return true;
 }
-
-// check collision of two rects (enemy wall to wall walk)
-bool CPhysic::RectRectCollisionX(SRect _rectOne, SRect _rectTwo)
-{
-	// if first rect x + w smaller than second rect x no collision
-	if (_rectOne.x + _rectOne.w < _rectTwo.x)
-		return false;
-
-	// if first rect x higher than second rect x + w no collision
-	if (_rectOne.x > _rectTwo.x + _rectTwo.w)
-		return false;
-
-	// if first rect y higher than second rect y + h no collision
-	if (_rectOne.y > _rectTwo.y + _rectTwo.h)
-		return false;
-
-	// if collision return true
-	return true;
-}
 #pragma endregion

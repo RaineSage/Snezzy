@@ -5,6 +5,8 @@
 
 #pragma region SDL2 include
 #include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #pragma endregion
 
 #pragma region project include
@@ -14,7 +16,9 @@
 #include "Input.h"
 #include "Time.h"
 #include "ContentManagement.h"
+#include "TextureManagement.h"
 #include "Config.h"
+#include "Mouse.h"
 #pragma endregion
 
 #pragma region using
@@ -22,9 +26,23 @@ using namespace std;
 #pragma endregion
 
 #pragma region public function
+void CEngine::SetMouseVisible(bool _visible)
+{
+	m_pMouse->SetVisible(_visible);
+}
+void CEngine::SetMouseCenter(SVector2 _center)
+{
+	m_pMouse->SetCenter(_center);
+}
+void CEngine::SetMouseTexture(CTexture * _pTexture)
+{
+	m_pMouse->SetTexture(_pTexture);
+}
 // initialize engine
 int CEngine::Init()
 {
+	CConfig::LoadConfig("Files/Config.ini");
+
 	// initialize sdl video
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -33,13 +51,29 @@ int CEngine::Init()
 		return 101;
 	}
 
+	// initialize sdl ttf
+	if (TTF_Init() < 0)
+	{
+		// show error
+		printf("SDL font not initialized! SDL Error: %s\n", SDL_GetError());
+		return 102;
+	}
+
+	// initialize sdl audio
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096 < 0))
+	{
+		// show error
+		printf("SDL audio not initialized! SDL Error: %s\n", SDL_GetError());
+		return 103;
+	}
+
 	// create sdl window
 	m_pWindow = SDL_CreateWindow(
 		"SDL2Engine",			// name of window
 		SDL_WINDOWPOS_CENTERED,	// position x
 		SDL_WINDOWPOS_CENTERED,	// position y
-		SCREEN_WIDTH,			// width
-		SCREEN_HEIGHT,			// height
+		CConfig::s_ScreenWidth,	// width
+		CConfig::s_ScreenHeight,// height
 		SDL_WINDOW_SHOWN);		// flags (F12)
 
 	// if window nullptr
@@ -47,7 +81,7 @@ int CEngine::Init()
 	{
 		// show error
 		printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-		return 102;
+		return 104;
 	}
 
 	// get surface from current window
@@ -61,7 +95,7 @@ int CEngine::Init()
 	{
 		// show error
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-		return 103;
+		return 105;
 	}
 
 	// create time
@@ -85,6 +119,29 @@ int CEngine::Init()
 		printf("CTM not intialized!");
 		return 202;
 	}
+
+	// create texture management
+	m_pTTM = new CTextureManagement();
+
+	// if ttm nullptr
+	if (!m_pTTM)
+	{
+		// show error
+		printf("TTM not intialized!");
+		return 203;
+	}
+
+	m_pMouse = new CMouse(SVector2(32, 32));
+	SDL_ShowCursor(SDL_DISABLE);
+
+	if (!m_pCTM)
+	{
+		// show error
+		printf("Mouse not intialized!");
+		return 204;
+	}
+
+	m_pMouse->SetInWorld(false);
 
 	// fill rect of surface with color
 	SDL_FillRect(m_pSurface, nullptr, SDL_MapRGB(m_pSurface->format, 0xFF, 0x22, 0xFF));
@@ -121,6 +178,12 @@ void CEngine::Clean()
 
 	// delete content management
 	delete m_pCTM;
+
+	// delete texture management
+	delete m_pTTM;
+
+	// close audio
+	Mix_CloseAudio();
 
 	// destroy used window
 	SDL_DestroyWindow(m_pWindow);
@@ -176,10 +239,15 @@ void CEngine::Update()
 		// if key pressed or released parse event to input class
 		else if (e.type == SDL_EventType::SDL_KEYDOWN || e.type == SDL_EventType::SDL_KEYUP)
 			CInput::ParseEvent(e);
+
+		else if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)
+			CInput::ParseMouseEvent(e);
 	}
 
 	// update ctm
 	CTM->Update(m_pTime->GetDeltaTime());
+
+	m_pMouse->Update(m_pTime->GetDeltaTime());
 
 	// update scene
 	if (m_pScene)
@@ -197,7 +265,10 @@ void CEngine::Render()
 		m_pScene->Render();
 
 	// render ctm
-		CTM->Render();
+	CTM->Render();
+
+	// render mouse
+	m_pMouse->Render();
 
 	// present rendered image
 	m_pRenderer->Present();

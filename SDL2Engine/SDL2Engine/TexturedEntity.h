@@ -64,17 +64,14 @@ public:
 	/// <param name="_inWorld">rendered in world</param>
 	inline void SetInWorld(bool _inWorld) { m_isWorld = _inWorld; }
 
+	inline float GetAngle() { return m_angle; }
+	inline void SetAngle(float _angle) { m_angle = _angle; }
+
 	/// <summary>
 	/// get rect of texture
 	/// </summary>
 	/// <returns>rect of texture</returns>
 	inline SRect GetRect() { return m_rect; }
-
-	/// <summary>
-	/// get positon of entity
-	/// </summary>
-	/// <returns>rect of position</returns>
-	inline SRect GetPosition() { return SRect(m_rect.w, m_rect.h, m_position.X, m_position.Y); }
 
 	/// <summary>
 	/// set rect of texture
@@ -87,6 +84,9 @@ public:
 	/// </summary>
 	/// <returns>source rect of texture</returns>
 	inline SRect GetSrcRect() { return m_srcRect; }
+
+	inline SVector2 GetMirror() { return m_mirror; }
+	inline void SetMirror(SVector2 _mirror) { m_mirror = _mirror; }
 
 	/// <summary>
 	/// get collision type
@@ -119,6 +119,8 @@ protected:
 	/// texture should be rendered in world or screen (UI)
 	/// </summary>
 	bool m_isWorld = true;
+
+	float m_angle = 0.0f;
 #pragma endregion
 
 #pragma region protected variable
@@ -131,6 +133,8 @@ protected:
 	/// source rect of texture
 	/// </summary>
 	SRect m_srcRect = SRect();
+
+	SVector2 m_mirror = SVector2();
 
 	/// <summary>
 	/// collision type of entity

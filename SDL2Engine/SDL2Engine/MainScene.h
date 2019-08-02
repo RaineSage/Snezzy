@@ -8,6 +8,7 @@
 #pragma region forward decleration
 class CTexturedEntity;
 class GWorld;
+class CMusic;
 #pragma endregion
 
 /// <summary>
@@ -61,5 +62,7 @@ public:
 	/// world reference
 	/// </summary>
 	GWorld* m_pWorld = nullptr;
+
+	CMusic* m_pAmbient = nullptr;
 #pragma endregion
 };

@@ -39,6 +39,6 @@ void CTexturedEntity::Update(float _deltaTime)
 void CTexturedEntity::Render()
 {
 	// render texture at rect
-	RENDERER->RenderTexture(m_pTexture, &m_rect, &m_srcRect, 0.0f, SVector2(), m_isWorld);
+	RENDERER->RenderTexture(m_pTexture, &m_rect, &m_srcRect, m_angle, m_mirror, m_isWorld);
 }
 #pragma endregion

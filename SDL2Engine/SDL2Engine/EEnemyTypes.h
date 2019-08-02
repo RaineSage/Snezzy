@@ -1,8 +1,8 @@
 #pragma once
-
-enum EnemyTypes
+enum EEnemyTypes
 {
 	WALKER,
 	JUMPER,
 	SHOOTER
 };
+

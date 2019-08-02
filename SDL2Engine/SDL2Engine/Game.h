@@ -2,7 +2,10 @@
 
 #pragma region project include
 #include "Engine.h"
-#include "MainScene.h"
+#include "ContentManagement.h"
+#include "MenuScene.h"
+#include "Font.h"
+#include "Texture.h"
 #pragma endregion
 
 #pragma region value macro
@@ -21,6 +24,8 @@ public:
 	/// </summary>
 	GGame() {}
 #pragma endregion
+
+	CFont* m_PFreescript = nullptr;
 
 #pragma region public inline function
 	/// <summary>
@@ -43,8 +48,17 @@ public:
 	/// </summary>
 	void Init()
 	{
+		m_PFreescript = new CFont("Font/F_Freescript.TTF", 32);
+
+		CTM->Clear();
+
 		// change scene to new main scene
-		ENGINE->ChangeScene(new GMainScene());
+		ENGINE->ChangeScene(new GMenuScene());
+	}
+
+	void QuitGame()
+	{
+		ENGINE->Stop();
 	}
 #pragma endregion
 };

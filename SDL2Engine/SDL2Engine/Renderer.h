@@ -33,6 +33,8 @@ public:
 #pragma endregion
 
 #pragma region public inline function
+	inline SVector2 GetCamera() { return m_camera; }
+
 	/// <summary>
 	/// set camera position
 	/// </summary>

@@ -1,8 +1,12 @@
 #pragma once
 
+#include <string>
+
 #pragma region project include
 #include "TexturedEntity.h" 
 #pragma endregion
+
+using namespace std;
 
 /// <summary>
 /// world class
@@ -30,4 +34,10 @@ public:
 	/// </summary>
 	void Init();
 #pragma endregion
+
+private:
+#pragma region private function
+	string LoadWorldFromImage(const char* _pFileName);
+#pragma endregion
+
 };

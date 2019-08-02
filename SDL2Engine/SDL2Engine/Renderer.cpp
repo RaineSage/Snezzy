@@ -48,10 +48,10 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, SRect* _pSr
 
 	// if textre rendered in world and of out camera range
 	else if (_inWorld && _pDstRect && (
-		(_pDstRect->x < m_camera.X - SCREEN_WIDTH * 0.5f - _pDstRect->w) ||
-		(_pDstRect->x > m_camera.X + SCREEN_WIDTH * 0.5f) ||
-		(_pDstRect->y < m_camera.Y - SCREEN_HEIGHT * 0.5f - _pDstRect->h) ||
-		(_pDstRect->y > m_camera.Y + SCREEN_HEIGHT * 0.5f)
+		(_pDstRect->x < m_camera.X - CConfig::s_ScreenWidth * 0.5f - _pDstRect->w) ||
+		(_pDstRect->x > m_camera.X + CConfig::s_ScreenWidth * 0.5f) ||
+		(_pDstRect->y < m_camera.Y - CConfig::s_ScreenHeight * 0.5f - _pDstRect->h) ||
+		(_pDstRect->y > m_camera.Y + CConfig::s_ScreenHeight * 0.5f)
 		))
 	{
 		return;
@@ -59,8 +59,8 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, SRect* _pSr
 
 	// if textre not rendered in world and of out screen return
 	else if (!_inWorld && _pDstRect && (
-		(_pDstRect->x < -_pDstRect->w) || (_pDstRect->x > SCREEN_WIDTH) ||
-		(_pDstRect->y < -_pDstRect->h) || (_pDstRect->y > SCREEN_HEIGHT)
+		(_pDstRect->x < -_pDstRect->w) || (_pDstRect->x > CConfig::s_ScreenWidth) ||
+		(_pDstRect->y < -_pDstRect->h) || (_pDstRect->y > CConfig::s_ScreenHeight)
 		))
 	{
 		return;
@@ -80,8 +80,8 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, SRect* _pSr
 		if (_inWorld)
 		{
 			// offset of destination rect depending on camera position
-			_pDstRect->x -= m_camera.X - SCREEN_WIDTH * 0.5f;
-			_pDstRect->y -= m_camera.Y - SCREEN_HEIGHT * 0.5f;
+			_pDstRect->x -= m_camera.X - CConfig::s_ScreenWidth * 0.5f;
+			_pDstRect->y -= m_camera.Y - CConfig::s_ScreenHeight * 0.5f;
 		}
 	}
 

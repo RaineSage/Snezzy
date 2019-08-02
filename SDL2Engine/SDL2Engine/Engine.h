@@ -1,18 +1,25 @@
 #pragma once
 
+#include "Vector2.h"
+
 #pragma region forward decleration
 class SDL_Window;
 class SDL_Surface;
 class CRenderer;
+class CTexture;
 class CScene;
 class CTime;
 class CContentManagement;
+class CTextureManagement;
+class CMouse;
 #pragma endregion
 
 #pragma region macro value
 #define ENGINE CEngine::Get()
 #define RENDERER CEngine::Get()->GetRenderer()
 #define CTM CEngine::Get()->GetCTM()
+#define TTM CEngine::Get()->GetTTM()
+#define SURFACE CEngine::Get()->GetSurface()
 #pragma endregion
 
 /// <summary>
@@ -29,6 +36,14 @@ public:
 #pragma endregion
 	
 #pragma region public function
+	inline void Stop() { m_isRunning = false; }
+
+	void SetMouseVisible(bool _visible);
+
+	void SetMouseCenter(SVector2 _center);
+
+	void SetMouseTexture(CTexture* _pTexture);
+
 	/// <summary>
 	/// initialize engine
 	/// </summary>
@@ -77,6 +92,18 @@ public:
 	/// </summary>
 	/// <returns>content management reference</returns>
 	CContentManagement* GetCTM() { return m_pCTM; }
+
+	/// <summary>
+	/// get texture management
+	/// </summary>
+	/// <returns>texture management reference</returns>
+	CTextureManagement* GetTTM() { return m_pTTM; }
+
+	/// <summary>
+	/// get sdl surface
+	/// </summary>
+	/// <returns>sdl surface from window</returns>
+	SDL_Surface* GetSurface() { return m_pSurface; }
 #pragma endregion
 
 private:
@@ -117,6 +144,13 @@ private:
 	/// content management reference
 	/// </summary>
 	CContentManagement* m_pCTM = nullptr;
+
+	/// <summary>
+	/// texture management reference
+	/// </summary>
+	CTextureManagement* m_pTTM = nullptr;
+
+	CMouse* m_pMouse = nullptr;
 #pragma endregion
 
 #pragma region private function

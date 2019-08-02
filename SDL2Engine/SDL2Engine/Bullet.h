@@ -1,23 +1,64 @@
 #pragma once
 
 #pragma region project include
-#include "TexturedEntity.h"
+#include "MoveEntity.h"
 #pragma endregion
 
-class GBullet : public CTexturedEntity
+/// <summary>
+/// move enemy class
+/// </summary>
+class GBullet : public CMoveEntity
 {
 public:
-	GBullet(SVector2 _pos, SVector2 _size, const char* _pFileName)
-		: CTexturedEntity(_pos, _size, _pFileName) { m_movement.X = -1.0f; }
+#pragma region constructor
+	/// <summary>
+	/// constructor
+	/// </summary>
+	/// <param name="_pos">position of object</param>
+	/// <param name="_size">width and height of object</param>
+	/// <param name="_pFileName">absolute file path name</param>
+	GBullet(SVector2 _pos, SVector2 _size, const char* _pFileName) : CMoveEntity(_pos, _size, _pFileName) {}
+#pragma endregion
 
+#pragma region destructor
+	/// <summary>
+	/// destructor
+	/// </summary>
+	virtual ~GBullet() {}
+#pragma endregion
+
+#pragma region public override function
+	/// <summary>
+	/// update every frame
+	/// </summary>
+	/// <param name="_deltaTime">time since last frame</param>
 	virtual void Update(float _deltaTime) override;
 
-	void AddForce(float _force) { m_force = _force; }
+	/// <summary>
+	/// render every frame
+	/// </summary>
+	virtual void Render() override;
+#pragma endregion
+
+#pragma region public function
+	/// <summary>
+	/// initialize move enemy
+	/// </summary>
+	void Init();
+
+	/// <summary>
+	/// Add Force to the Bullet
+	/// </summary>
+	/// <param name="_addForce"></param>
+	void AddForce(float _addForce) { m_addForce = _addForce; }
+#pragma endregion
 
 private:
-	SVector2 m_movement = SVector2();
-	float m_force = 100.0f;
-	float m_fallTime = 0.0f;
-
+#pragma region private primitive variable
+	/// <summary>
+	/// time
+	/// </summary>
+	float m_addForce = 100.0f;
+#pragma endregion
 };
 

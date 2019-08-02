@@ -1,14 +1,15 @@
-#pragma region system include
-#include <string>
-#pragma endregion
+#include <SDL_image.h>
 
 #pragma region project include
 #include "World.h"
 #include "Config.h"
 #include "Engine.h"
 #include "ContentManagement.h"
+#include "TextureManagement.h"
 #include "Player.h"
-#include "EnemyAI.h"
+#include "Helper.h"
+#include "MoveEnemy.h"
+#include "Texture.h"
 #pragma endregion
 
 #pragma region using
@@ -27,40 +28,51 @@ void GWorld::Init()
 	// W = way
 	// L = lava
 	// S = player start position
-	// E = enemy WALKER
-	// F = enemy SHOOTER
-	// J = enemy JUMPER
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000F00000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000F00000000000000W00000000000000000000000000XXXX\n";
-	world += "XXXX000000000000000000000000000000000WWWWWWWW00000000WX00000000000000000000000000XXXX\n";
-	world += "XXXX000000000000000000000000000000000000000000000000WXX0000000000000000Fa00000000XXXX\n";
-	world += "XXXX000000000WW000000000000WWWWWW000000000000000000WXXX000000000000000WWWWWWW0000XXXX\n";
-	world += "XXXX00S00000WXXW0000000000000XX0000000000000000000WXXXX00000000000000000000000000XXXX\n";
-	world += "XXXX0000000WXXXXW000000E0000WXXW00000J00000J00000WXXXXX00000000F00W00000E00000000XXXX\n";
-	world += "XXXXWWWWWWWXXXXXXWWWWWWWWWWWWXXWWWWWWWWWWWWWWWWWWXXXXXXWWWWWW00W00WWWWWWWWWWWWWWWXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX00X00XXXXXXXXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX00X00XXXXXXXXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX00X00XXXXXXXXXXXXXXXXXXX";
+	// E = move enemy
+	/*world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX0S000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX000000000000000000000000000000000000000000000E0000000000000000000000000000000000000000000000XXXX\n";
+	world += "XXXX000000000000000000000000000000000000000000000000000000E0000000000000000000000000000000E00000XXXX\n";
+	world += "XXXX0000000000000000000000000000000000000000WWWWWWWWW000000000000000000000000000000E000000000000XXXX\n";
+	world += "XXXX0000000000WWW000000000000000E000000WWWWWXXXXXXXXXWWWWWWWW0000000000E0000000000000WWWWWWWWWWWXXXX\n";
+	world += "XXXX00000WWWWWXXXWWWW0000000000000WWWWWXXXXXXXXXXXXXXXXXXXXXXWW000000000000000000WWWWXXXXXXXXXXXXXXX\n";
+	world += "XXXXWWWWWXXXXXXXXXXXXWWWLWWWWLWWWWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXWWWWWLWWWWWLWWWWWWXXXXXXXXXXXXXXXXXXX\n";
+	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
+	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";*/
+
+	bool loadString = true;
+
+	if (loadString)
+	{
+		world = LoadStringFromFile("Files/World.ini");
+	}
+	else
+	{
+		world = LoadWorldFromImage("Texture/World/T_World.png");
+	}
 
 	// width and height
 	int width = 0, height = 0;
+
+	int widthOfWorld = 0;
 
 	// check every char of world
 	for (int i = 0; i < world.length(); i++)
 	{
 		// create textured entity
 		CTexturedEntity* pObj = new CTexturedEntity(
-			SVector2(width * BLOCK_WIDTH, height * BLOCK_HEIGHT),
-			SVector2(BLOCK_WIDTH, BLOCK_HEIGHT),
+			SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
+			SVector2(CConfig::s_BlockWidth, CConfig::s_BlockHeight),
 			nullptr
 		);
 
@@ -81,10 +93,7 @@ void GWorld::Init()
 		case 'X':
 		{
 			// set x position of texture in atlas
-			xPosInTexture = 1 * BLOCK_ATLAS_WIDTH;
-
-			// set collision type of dirt textured entity to static
-			pObj->SetColType(ECollisionType::STATIC);
+			xPosInTexture = 1 * CConfig::s_BlockAtlasWidth;
 			break;
 		}
 
@@ -92,7 +101,7 @@ void GWorld::Init()
 		case 'W':
 		{
 			// set x position of texture in atlas
-			xPosInTexture = 2 * BLOCK_ATLAS_WIDTH;
+			xPosInTexture = 2 * CConfig::s_BlockAtlasWidth;
 
 			// set collision type of way textured entity to static
 			pObj->SetColType(ECollisionType::STATIC);
@@ -103,7 +112,7 @@ void GWorld::Init()
 		case 'L':
 		{
 			// set x position of texture in atlas
-			xPosInTexture = 3 * BLOCK_ATLAS_WIDTH;
+			xPosInTexture = 3 * CConfig::s_BlockAtlasWidth;
 
 			// set collision type of lava textured entity to static
 			pObj->SetColType(ECollisionType::STATIC);
@@ -115,82 +124,102 @@ void GWorld::Init()
 		{
 			// create player
 			GPlayer* pPlayer = new GPlayer(
-				SVector2(width * BLOCK_WIDTH, height * BLOCK_HEIGHT),
-				SVector2(BLOCK_WIDTH, BLOCK_HEIGHT),
-				"Texture/Character/Player/T_Attack.bmp"
+				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
+				SVector2(CConfig::s_BlockWidth, CConfig::s_BlockHeight * 1.75f),
+				nullptr
 			);
 
-			// set Player to Idle Texture
-			pPlayer->SetSrcRect(SRect(193, 175, 0, 0));
+			CTexture* pTexture = TTM->GetTexture("Player");
+
+			if (!pTexture)
+			{
+				TTM->AddTexture("Player", new CTexture("Texture/Character/Player/T_Player.png"));
+				pTexture = TTM->GetTexture("Player");
+			}
+
+			pPlayer->SetTexture(pTexture);
 
 			// set player tag, collision type to dynamic and speed
 			pPlayer->SetTag("Player");
 			pPlayer->SetColType(ECollisionType::DYNAMIC);
-			pPlayer->SetSpeed(PLAYER_SPEED);
+			pPlayer->SetSpeed(CConfig::s_PlayerSpeed);
+			pPlayer->ActiveGravity();
 
 			// add player to ctm
 			CTM->AddPersistentEntity(pPlayer);
 			break;
 		}
 
-		// E char (enemy WALKER)
+		// create enemy WALKER
 		case 'E':
 		{
-			// create enemy
-			GEnemyAI* pEnemy = new GEnemyAI(
-				SVector2(width * BLOCK_WIDTH, height * BLOCK_HEIGHT),
-				SVector2(BLOCK_WIDTH, BLOCK_HEIGHT),
-				"Texture/Character/Enemy/T_Enemy.bmp"
+			GMoveEnemy* pEnemy = new GMoveEnemy(
+				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
+				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
+				nullptr
 			);
 
-			// set enemy tag, collision type to dynamic and speed
-			pEnemy->SetTag("Enemy");
-			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			pEnemy->SetSpeed(50.0f);
+			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
 
-			// add enemy to ctm
+			if (!pTexture)
+			{
+				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
+				pTexture = TTM->GetTexture("MoveEnemy");
+			}
+
+			pEnemy->SetTexture(pTexture);
+
+			pEnemy->Init();
 			CTM->AddPersistentEntity(pEnemy);
 			break;
 		}
 
-		// F char (enemy SHOOTER)
-		case 'F':
-		{
-			// create enemy
-			GEnemyAI* pEnemy = new GEnemyAI(
-				SVector2(width * BLOCK_WIDTH, height * BLOCK_HEIGHT),
-				SVector2(BLOCK_WIDTH, BLOCK_HEIGHT),
-				"Texture/Character/Enemy/T_Enemy.bmp"
-			);
-
-			// set enemy tag, collision type to dynamic and enemy type
-			pEnemy->SetTag("Enemy");
-			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			pEnemy->SetType(SHOOTER);
-
-			// add enemy to ctm
-			CTM->AddPersistentEntity(pEnemy);
-			break;
-		}
-
-		// J char (enemy JUMPER)
+		// create enemy JUMPER
 		case 'J':
 		{
-			// create enemy
-			GEnemyAI* pEnemy = new GEnemyAI(
-				SVector2(width * BLOCK_WIDTH, height * BLOCK_HEIGHT),
-				SVector2(BLOCK_WIDTH, BLOCK_HEIGHT),
-				"Texture/Character/Enemy/T_Enemy.bmp"
+			GMoveEnemy* pEnemy = new GMoveEnemy(
+				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
+				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
+				nullptr
 			);
 
-			// set enemy tag, collision type to dynamic, speed, jump interval and enemy type
-			pEnemy->SetTag("Enemy");
-			pEnemy->SetColType(ECollisionType::DYNAMIC);
-			pEnemy->SetSpeed(50.0f);
-			pEnemy->SetJumpTime(1.5f);
+			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
+
+			if (!pTexture)
+			{
+				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
+				pTexture = TTM->GetTexture("MoveEnemy");
+			}
+
+			pEnemy->SetTexture(pTexture);
 			pEnemy->SetType(JUMPER);
 
-			// add enemy to ctm
+			pEnemy->Init();
+			CTM->AddPersistentEntity(pEnemy);
+			break;
+		}
+
+		// create enemy SHOOTER
+		case 'F':
+		{
+			GMoveEnemy* pEnemy = new GMoveEnemy(
+				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
+				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
+				nullptr
+			);
+
+			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
+
+			if (!pTexture)
+			{
+				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
+				pTexture = TTM->GetTexture("MoveEnemy");
+			}
+
+			pEnemy->SetTexture(pTexture);
+			pEnemy->SetType(SHOOTER);
+
+			pEnemy->Init();
 			CTM->AddPersistentEntity(pEnemy);
 			break;
 		}
@@ -201,7 +230,7 @@ void GWorld::Init()
 		}
 
 		// set source rect of current block
-		pObj->SetSrcRect(SRect(BLOCK_ATLAS_WIDTH, BLOCK_ATLAS_HEIGHT, xPosInTexture, 0));
+		pObj->SetSrcRect(SRect(CConfig::s_BlockAtlasWidth, CConfig::s_BlockAtlasHeight, xPosInTexture, 0));
 
 		// increase width
 		width++;
@@ -211,8 +240,56 @@ void GWorld::Init()
 		{
 			// increase height and reset width
 			height++;
+			widthOfWorld = width;
 			width = 0;
 		}
 	}
+
+	CTM->SetupCollision(widthOfWorld);
 }
 #pragma endregion
+
+string GWorld::LoadWorldFromImage(const char* _pFileName)
+{
+	string text = "";
+
+	SDL_Surface* pWorld = IMG_Load(GetAssetPath(_pFileName, 4).c_str());
+
+	char* pPixels = (char*)pWorld->pixels;
+
+	for (int i = 0; i < pWorld->w * pWorld->h; i++)
+	{
+		uint8_t r = pPixels[0];
+		uint8_t g = pPixels[1];
+		uint8_t b = pPixels[2];
+
+		// black = 0 = background
+		// white = X = dirt
+		// blue = W = way
+		// red = L = lava
+		// green = S = player start position
+		// yellow = E = move enemy
+
+		if (r == 0 && g == 0 && b == 0)
+			text += '0';
+		else if (r == 255 && g == 255 && b == 255)
+			text += 'X';
+		else if (r == 0 && g == 0 && b == 255)
+			text += 'W';
+		else if (r == 255 && g == 0 && b == 0)
+			text += 'L';
+		else if (r == 0 && g == 255 && b == 0)
+			text += 'S';
+		else if (r == 255 && g == 255 && b == 0)
+			text += 'E';
+
+
+		pPixels += pWorld->format->BytesPerPixel;
+
+		if ((i + 1) % pWorld->w == 0)
+			text += '\n';
+	}
+
+
+	return text;
+}
