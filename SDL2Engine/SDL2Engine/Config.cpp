@@ -4,107 +4,111 @@
 #pragma endregion
 
 #pragma region variables
-int CConfig::s_ScreenWidth = 640;
-int CConfig::s_ScreenHeight = 480;
-int CConfig::s_BlockWidth = 64;
-int CConfig::s_BlockHeight = 64;
-int CConfig::s_BlockAtlasWidth = 26;
-int CConfig::s_BlockAtlasHeight = 26;
-float CConfig::s_Gravity = 9.81f;
-int CConfig::s_PixelPerMeter = 32;
-float CConfig::s_PlayerJump = 1.0f;
-float CConfig::s_PlayerSpeed = 128.0f;
-float CConfig::s_ColTimer = 0.1f;
-int CConfig::s_PlayerSrcRectWidth = 36;
-int CConfig::s_PlayerSrcRectHeight = 46;
-int CConfig::s_BulletSpeed = 250.0f;
-int CConfig::s_MoveEnemyWidth = 32;
-int CConfig::s_MoveEnemyHeight = 32;
-float CConfig::s_MoveEnemySpeed = 125.0f;
+int GConfig::s_BlockWidth = 64;
+int GConfig::s_BlockHeight = 64;
+int GConfig::s_BlockAtlasWidth = 26;
+int GConfig::s_BlockAtlasHeight = 26;
+float GConfig::s_Gravity = 9.81f;
+float GConfig::s_PlayerJump = 1.0f;
+int GConfig::s_PlayerSrcRectWidth = 36;
+int GConfig::s_PlayerSrcRectHeight = 46;
+int GConfig::s_BulletSpeed = 250.0f;
+int GConfig::s_MoveEnemyWidth = 32;
+int GConfig::s_MoveEnemyHeight = 32;
+float GConfig::s_MoveEnemySpeed = 125.0f;
 #pragma endregion
 
 #pragma region public function
 // load config from file
-void CConfig::LoadConfig(const char* _pFile)
+void GConfig::LoadConfig(const char* _pFile)
 {
+	// string from file
 	string text = LoadStringFromFile(_pFile);
 
-	string variable = "";
-	string value = "";
+	// string for variable and value
+	string variable;
+	string value;
 
+	// as long as there is a char in text
 	while (text.length() > 0)
 	{
+		// reset variable and value
 		variable = "";
 		value = "";
 
-		while (text[0] != '?')
+		// as long as there is no :
+		while (text[0] != ':')
 		{
+			// incraes variable char
 			variable += text[0];
 
+			// remove first char in text
 			text.erase(0, 1);
 		}
 
+		// remove first char in text
 		text.erase(0, 1);
 
+		// as long as there is no new line
 		while (text[0] != '\n')
 		{
+			// incraes value char
 			value += text[0];
 
+			// remove first char in text
 			text.erase(0, 1);
 		}
 
+		// remove first char in text
 		text.erase(0, 1);
 
-		if (variable == "ScreenWidth")
-			s_ScreenWidth = stoi(value);
-
-		else if (variable == "ScreenHeight")
-			s_ScreenHeight = stoi(value);
-
-		else if (variable == "BlockWidth")
+		// if variable is block width set value
+		if (variable == "BlockWidth")
 			s_BlockWidth = stoi(value);
 
+		// if variable is block height set value
 		else if (variable == "BlockHeight")
 			s_BlockHeight = stoi(value);
 
+		// if variable is block atlas width set value
 		else if (variable == "BlockAtlasWidth")
 			s_BlockAtlasWidth = stoi(value);
 
+		// if variable is block atlas height set value
 		else if (variable == "BlockAtlasHeight")
 			s_BlockAtlasHeight = stoi(value);
 
+		// if variable is gravity set value
 		else if (variable == "Gravity")
-			s_Gravity = stoi(value) * 0.01f;
+			s_Gravity = stoi(value) * 0.001f;
 
-		else if (variable == "PixelPerMeter")
-			s_PixelPerMeter = stoi(value);
-
+		// if variable is player jump set value
 		else if (variable == "PlayerJump")
-			s_PlayerJump = stoi(value) * 0.01f;
+			s_PlayerJump = stoi(value) * 0.001f;
 
-		else if (variable == "PlayerSpeed")
-			s_PlayerSpeed = stoi(value) * 0.01f;
-
-		else if (variable == "ColTimer")
-			s_ColTimer = stoi(value) * 0.0001f;
-
+		// if variable is player source rect width set value
 		else if (variable == "PlayerSrcRectWidth")
 			s_PlayerSrcRectWidth = stoi(value);
 
+		// if variable is player source rect height set value
 		else if (variable == "PlayerSrcRectHeight")
 			s_PlayerSrcRectHeight = stoi(value);
 
+		// if variable is bullet speed set value
 		else if (variable == "BulletSpeed")
-			s_BulletSpeed = stoi(value) * 0.01f;
+			s_BulletSpeed = stoi(value) * 0.001f;
 
+		// if variable is move enemy width set value
 		else if (variable == "MoveEnemyWidth")
 			s_MoveEnemyWidth = stoi(value);
 
+		// if variable is move enemy height set value
 		else if (variable == "MoveEnemyHeight")
 			s_MoveEnemyHeight = stoi(value);
 
+		// if variable is move enemy speed set value
 		else if (variable == "MoveEnemySpeed")
-			s_MoveEnemySpeed = stoi(value) * 0.01f;
+			s_MoveEnemySpeed = stoi(value) * 0.001f;
 	}
 }
 #pragma endregion

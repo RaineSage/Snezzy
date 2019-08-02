@@ -2,44 +2,46 @@
 #include "Time.h"
 #pragma endregion
 
-#pragma region variable
+// set variables 0
 float CTime::m_deltaTime = 0.0f;
-short CTime::m_fps = 0;
-#pragma endregion
+int CTime::m_fps = 0;
 
-#pragma region public variable
-// update time
+#pragma region public function
+// update every frame
 void CTime::Update()
 {
 	// time since application start in milliseconds
 	clock_t now = clock();
 
-	// difference to last update
+	// difference to last frame
 	clock_t diff = now - m_lastUpdate;
 
-	// calculate time since last frame
+	// set delta time
 	m_deltaTime = diff / (float)CLOCKS_PER_SEC;
 
-	// set last update time to now
+	// last update now
 	m_lastUpdate = now;
 
-	// increase frames since last update
-	m_framesSinceLastUpdate++;
+	// increase frames since last time stamp
+	m_framesSinceLastTimeStamp++;
 
-	// increase time since last update
+	// increase time since last time stamp
 	m_timeSinceLastTimeStamp += diff;
 
-	// if time since last update higher than clocks per second
+	// time since last time stamp more than 1 second
 	if (m_timeSinceLastTimeStamp > CLOCKS_PER_SEC)
 	{
-		// set frames per second
-		m_fps = m_framesSinceLastUpdate;
+		// set fps
+		m_fps = m_framesSinceLastTimeStamp;
 
-		// reset frames since last update
-		m_framesSinceLastUpdate = 0;
+		// reset frames since last time stamp
+		m_framesSinceLastTimeStamp = 0;
 
 		// decrease time since last time stamp
 		m_timeSinceLastTimeStamp -= CLOCKS_PER_SEC;
+
+		// reset delta time
+		m_deltaTime = 0.0f;
 	}
 }
 #pragma endregion

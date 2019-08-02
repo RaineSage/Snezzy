@@ -1,73 +1,84 @@
 #pragma region system include
-#include <fstream>
-#pragma endregion
-
-#pragma region SDL2 include
 #include <SDL.h>
+#include <fstream>
 #pragma endregion
 
 #pragma region project include
 #include "Helper.h"
 #pragma endregion
 
-// get parent directory of path
+// get parent directory of given path
 string GetParentDirectory(string _path, int _depth)
 {
-	// depth higher one
+	// depth higher 1
 	if (_depth > 1)
+		// get parent directory recursive
 		_path = GetParentDirectory(_path, _depth - 1);
 
 	// position of last sub
 	size_t pos = _path.find_last_of("\\/");
 
-	// return parent path
-	return string::npos == pos ? "" : _path.substr(0, pos);
+	// return parent
+	return (string::npos == pos)
+		? ""
+		: _path.substr(0, pos);
 }
 
-// get complete asset path
+// get directory from asset by given path
 string GetAssetPath(const char* _pPath, int _depth)
 {
-	// get parent path minus bin/platform/configuration
+	// get parent directory
 	string path = GetParentDirectory(SDL_GetBasePath(), _depth);
 
-	// append asset and given path
+	// append sub path
 	path.append("/Assets/").append(_pPath);
 
-	// return absolute asset path
+	// return complete asset path
 	return path;
 }
 
-string LoadStringFromFile(const char* _pFileName)
+// load string from file
+string LoadStringFromFile(const char* _pFile)
 {
+	// string to return
 	string text = "";
 
+	// open file
 	ifstream file;
-	file.open(GetAssetPath(_pFileName, 4).c_str());
+	file.open(GetAssetPath(_pFile, 4));
 
-	if(!file.is_open())
-		return "";
+	// if file not opened return empty string
+	if (!file.is_open())
+		return text;
 
+	// single line in file
 	string line = "";
 
+	// as long as there is a line add line to text
 	while (getline(file, line))
 		text.append(line).append("\n");
 
+	// close file
 	file.close();
 
+	// return text
 	return text;
 }
 
-bool SaveStringToFile(string _text, const char* _pFileName)
+// save string to file
+void SaveStringToFile(string _text, const char* _pFile)
 {
+	// open file
 	ofstream file;
-	file.open(GetAssetPath(_pFileName, 4).c_str());
+	file.open(GetAssetPath(_pFile, 4));
 
+	// if file are not opened
 	if (!file.is_open())
-		return false;
+		return;
 
+	// write char* into file
 	file << _text;
 
+	// close file
 	file.close();
-
-	return true;
 }

@@ -10,6 +10,13 @@ class SRect;
 class CPhysic
 {
 public:
+#pragma region public variable
+	/// <summary>
+	/// gravity value
+	/// </summary>
+	static float s_Gravity;
+#pragma endregion
+
 #pragma region public function
 	/// <summary>
 	/// check collision of two rects

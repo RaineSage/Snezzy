@@ -12,17 +12,24 @@ class CSound;
 /// <summary>
 /// player class
 /// </summary>
-class GPlayer : public CMoveEntity
+class GPlayer :	public CMoveEntity
 {
 public:
 #pragma region constructor
 	/// <summary>
 	/// constructor
 	/// </summary>
-	/// <param name="_pos">position of entity</param>	
-	/// <param name="_size">size of texture (x = width)</param>
-	/// <param name="_pFileName">relative path name of texture</param>
-	GPlayer(SVector2 _pos, SVector2 _size, const char* _pFileName);
+	/// <param name="_pos">position of object</param>
+	/// <param name="_size">width (x) and height (y) of object</param>
+	GPlayer(SVector2 _pos = SVector2(), SVector2 _size = SVector2()) : CMoveEntity(_pos, _size) {}
+
+	/// <summary>
+	/// constructor
+	/// </summary>
+	/// <param name="_pos">position of object</param>
+	/// <param name="_size">width and height of object</param>
+	/// <param name="_pFileName">absolute file path name</param>
+	GPlayer(SVector2 _pos, SVector2 _size, const char* _pFileName) : CMoveEntity(_pos, _size, _pFileName) {}
 #pragma endregion
 
 #pragma region destructor
@@ -32,12 +39,9 @@ public:
 	virtual ~GPlayer()
 	{
 		// delete animations
-		delete m_pIDLEAnim;
-		delete m_pWalkAnim;
-
-		// current does not need to be deleted 
-		// because it is used to point at the idle or walk animation
-		delete m_pCurrentAnim;
+		delete m_pIdleAnim;
+		delete m_pRunAnim;
+		delete m_pAttackAnim;
 	}
 #pragma endregion
 
@@ -45,8 +49,8 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
 
 	/// <summary>
 	/// render every frame
@@ -54,45 +58,50 @@ public:
 	virtual void Render() override;
 #pragma endregion
 
+#pragma region public function
+	/// <summary>
+	/// initialize player
+	/// </summary>
+	void Init();
+#pragma endregion
+
 private:
 #pragma region private pointer
 	/// <summary>
-	/// current animation pointer
+	/// current animation
 	/// </summary>
 	CAnimation* m_pCurrentAnim = nullptr;
 
 	/// <summary>
-	/// idle animation reference
+	/// idle animation
 	/// </summary>
-	CAnimation* m_pIDLEAnim = nullptr;
+	CAnimation* m_pIdleAnim = nullptr;
 
 	/// <summary>
-	/// walk animation reference
+	/// run animation
 	/// </summary>
-	CAnimation* m_pWalkAnim = nullptr;
+	CAnimation* m_pRunAnim = nullptr;
 
 	/// <summary>
-	/// attack animation reference
+	/// attack animation
 	/// </summary>
 	CAnimation* m_pAttackAnim = nullptr;
 
-	CSound* m_pJump = nullptr;
+	/// <summary>
+	/// shot sound
+	/// </summary>
+	CSound* m_pShot = nullptr;
 #pragma endregion
 
 #pragma region private primitive variable
 	/// <summary>
-	/// time
-	/// </summary>
-	float m_time = 0.0f;
-
-	/// <summary>
-	/// if attack modus enabled
+	/// if player attack
 	/// </summary>
 	bool m_attack = false;
 
 	/// <summary>
-	/// how long a attack should go
+	/// time counter
 	/// </summary>
-	float m_attackTime = 1.0f;
+	float m_time = 0.0f;
 #pragma endregion
 };

@@ -1,31 +1,24 @@
 #pragma region project include
 #include "MoveEntity.h"
 #include "Engine.h"
+#include "Renderer.h"
 #include "ContentManagement.h"
 #include "Physic.h"
-#include "Game.h"
-#include "Config.h"
-#include "Renderer.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
-void CMoveEntity::Update(float _deltaTime)
+void CMoveEntity::Update(float _deltaSeconds)
 {
-	if (m_position.X > RENDERER->GetCamera().X - CConfig::s_ScreenWidth * 0.6f
-		&& m_position.X < RENDERER->GetCamera().X + CConfig::s_ScreenWidth * 0.6f
-		&& m_position.Y > RENDERER->GetCamera().Y - CConfig::s_ScreenHeight * 0.6f
-		&& m_position.Y < RENDERER->GetCamera().Y + CConfig::s_ScreenHeight * 0.6f)
-	{
-		// check collision movement
-		CheckCollision(_deltaTime, false);
+	// check gravity movement down
+	CheckCollision(_deltaSeconds, SVector2(0.0f, 1.0f), CPhysic::s_Gravity, true);
 
-		// check collision gravity
-		CheckCollision(_deltaTime, true);
+	// check collision with collision list
+	CheckCollision(_deltaSeconds, m_movement, m_speed, false);
 
-		// update parent
-		CTexturedEntity::Update(_deltaTime);
-	}
+	// update parent
+	CTexturedEntity::Update(_deltaSeconds);
 }
 
 // render every frame
@@ -35,147 +28,159 @@ void CMoveEntity::Render()
 }
 #pragma endregion
 
-#pragma region private function
-// fill collision list with all entities near
+#pragma region public function
+// fill collision list with near collidable objects
 void CMoveEntity::SetCollisionList()
 {
-	// clear list with collision entities
-	m_pColEntities.clear();
-
-	// set rect for collision check around entity
-	SRect rect = m_rect;
-	rect.x -= m_rect.w;
-	rect.y -= m_rect.h;
-	rect.w = m_rect.w * 3.0f;
-	rect.h = m_rect.h * 3.0f;
-
-	// check all persistent entities
-	for (CEntity* pEntity : CTM->GetPersistentEntities())
+	// if camera too far away return
+	if (RENDERER->GetCamera().X > m_position.X + SCREEN_WIDTH ||
+		RENDERER->GetCamera().X < m_position.X - SCREEN_WIDTH ||
+		RENDERER->GetCamera().Y > m_position.Y + SCREEN_HEIGHT ||
+		RENDERER->GetCamera().Y < m_position.Y - SCREEN_HEIGHT)
 	{
-		// if current entity collision type is dynamic or static
-		if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::DYNAMIC ||
-			((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::STATIC)
+		return;
+	}
+
+	// clear list of collision objects in range
+	m_pCol.clear();
+
+	// set range check rect
+	SRect rangeRect = m_rect;
+	rangeRect.x -= COLLISION_RANGE;
+	rangeRect.y -= COLLISION_RANGE;
+	rangeRect.w += 2 * COLLISION_RANGE;
+	rangeRect.h += 2 * COLLISION_RANGE;
+
+	// through all scene objects
+	for (CEntity* pObj : CTM->GetSceneObjects())
+	{
+		if (!pObj)
+			continue;
+		// if current object is textured object min and not self
+		if ((CTexturedEntity*)pObj && pObj != this)
 		{
-			// if self check next entity
-			if (pEntity == this)
+			// if collision type is none continue
+			if (((CTexturedEntity*)pObj)->GetColType() == ECollisionType::NONE)
 				continue;
 
-			// if rect of next frame collides with entity rect
-			if (CPhysic::RectRectCollision(rect, ((CTexturedEntity*)pEntity)->GetRect()))
-				m_pColEntities.push_back((CTexturedEntity*)pEntity);
+			// if current object collides (is in range) with this
+			if (CPhysic::RectRectCollision(rangeRect, ((CTexturedEntity*)pObj)->GetRect()))
+				// add current object to collision list
+				m_pCol.push_front((CTexturedEntity*)pObj);
 		}
 	}
 
-	// check all persistent entities
-	for (CEntity* pEntity : CTM->GetCollisionEntities())
+	// through all persistant objects
+	for (CEntity* pObj : CTM->GetPersistantObjects())
 	{
-		if (pEntity->GetPosition().X < RENDERER->GetCamera().X - CConfig::s_ScreenWidth * 0.75f
-			|| pEntity->GetPosition().X > RENDERER->GetCamera().X + CConfig::s_ScreenWidth * 0.75f
-			|| pEntity->GetPosition().Y < RENDERER->GetCamera().Y - CConfig::s_ScreenHeight * 0.75f
-			|| pEntity->GetPosition().Y > RENDERER->GetCamera().Y + CConfig::s_ScreenHeight * 0.75f)
+		if (!pObj)
 			continue;
-
-		// if current entity collision type is dynamic or static
-		if (((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::DYNAMIC ||
-			((CTexturedEntity*)pEntity)->GetColType() == ECollisionType::STATIC)
+		// if current object is textured object min and not self
+		if ((CTexturedEntity*)pObj && pObj != this)
 		{
-			// if self check next entity
-			if (pEntity == this)
+			// if collision type is none continue
+			if (((CTexturedEntity*)pObj)->GetColType() == ECollisionType::NONE)
 				continue;
 
-			// if rect of next frame collides with entity rect
-			if (CPhysic::RectRectCollision(rect, ((CTexturedEntity*)pEntity)->GetRect()))
-				m_pColEntities.push_back((CTexturedEntity*)pEntity);
+			// if current object collides (is in range) with this
+			if (CPhysic::RectRectCollision(rangeRect, ((CTexturedEntity*)pObj)->GetRect()))
+				// add current object to collision list
+				m_pCol.push_front((CTexturedEntity*)pObj);
 		}
 	}
 }
+#pragma endregion
 
-// check collision by movement and gravity
-void CMoveEntity::CheckCollision(float _deltaTime, bool _useGravity)
+#pragma region private function
+// check collision with collidable objects list
+void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float _speed, bool _useGravity)
 {
-	// if use gravity but gravity disabled return
+	// if camera too far away return
+	if (RENDERER->GetCamera().X > m_position.X + SCREEN_WIDTH ||
+		RENDERER->GetCamera().X < m_position.X - SCREEN_WIDTH ||
+		RENDERER->GetCamera().Y > m_position.Y + SCREEN_HEIGHT ||
+		RENDERER->GetCamera().Y < m_position.Y - SCREEN_HEIGHT)
+	{
+		return;
+	}
+
+	// if gravity used but gravity false return
 	if (_useGravity && !m_gravity)
 		return;
 
-	// check player is moveable
+	// moveable default true
 	bool moveable = true;
 
-	// calculate next position by movement
-	SVector2 nextPos = m_position + m_movement * m_speed * _deltaTime;
+	// if gravity used grounded default true
+	if(_useGravity)
+		m_grounded = true;
+
+	// reset collision target
+	m_pColTarget = nullptr;
+
+	// calculate position to move to
+	SVector2 nextPos = m_position + _movement * _speed * _deltaSeconds;
 
 	// if gravity used
 	if (_useGravity)
 	{
 		// increase fall time
-		m_fallTime += _deltaTime;
+		m_fallTime += _deltaSeconds;
 
-		// calculate next position by gravity and fall time
-		nextPos = m_position;
-		nextPos.Y += m_fallTime * _deltaTime * CConfig::s_Gravity * CConfig::s_PixelPerMeter;
+		// calculate position to move to
+		nextPos = m_position + _movement * _speed * m_fallTime * _deltaSeconds;
 	}
 
-	// check all collision entities
-	for (CEntity* pEntity : m_pColEntities)
+	// calculate rect to move to
+	SRect rect = m_rect;
+	rect.x = nextPos.X;
+	rect.y = nextPos.Y;
+
+	// through all collision objects in range
+	for (CTexturedEntity* pObj : m_pCol)
 	{
-		if (moveable)
+		// if current object is textured object min
+		if (pObj != this)
 		{
-			moveable = !(CPhysic::RectRectCollision(SRect(m_rect.w, m_rect.h, nextPos.X, nextPos.Y),
-				SRect(((CTexturedEntity*)pEntity)->GetRect().w, ((CTexturedEntity*)pEntity)->GetRect().h,
-				((CTexturedEntity*)pEntity)->GetPosition().X, ((CTexturedEntity*)pEntity)->GetPosition().Y)));
-		}
+			// get rect from object
+			SRect objRect = ((CTexturedEntity*)pObj)->GetRect();
+			objRect.x = pObj->GetPosition().X;
+			objRect.y = pObj->GetPosition().Y;
 
-		// if rect of next frame collides with entity rect
-		if (_useGravity && m_pTag == "Player" && pEntity->GetTag() == "Enemy")
-		{ 
-			SRect myRect = SRect(m_rect.w, m_rect.h, nextPos.X, nextPos.Y);
-			SRect otherRect = SRect(((CTexturedEntity*)pEntity)->GetRect().w, ((CTexturedEntity*)pEntity)->GetRect().h,
-				((CTexturedEntity*)pEntity)->GetPosition().X, ((CTexturedEntity*)pEntity)->GetPosition().Y);
+			// if collision type is none continue
+			if (pObj->GetColType() == ECollisionType::NONE)
+				continue;
 
-			if(CPhysic::RectRectCollision(myRect, otherRect))
-				CTM->RemoveEntity(pEntity);
-		}
+			// set moveable by checking collision
+			moveable = !CPhysic::RectRectCollision(rect, objRect);
 
-		// if rect of next frame collides with entity rect (enemy into player while attack is true)
-		if (m_attack && !_useGravity && m_pTag == "Player" && pEntity->GetTag() == "Enemy")
-		{
-			CTM->RemoveEntity(pEntity);
+			// change walk direction by collision (only enemys)
+			if (m_pTag == "Enemy" && !_useGravity && !moveable)
+			{
+				m_movement.X = -(m_movement.X);
+			}
+
+			// if not moveable cancel collision check
+			if (!moveable)
+			{
+				// set collision target
+				m_pColTarget = (CTexturedEntity*)pObj;
+				break;
+			}
 		}
 	}
 
-	if (m_pTag == "Enemy" && !_useGravity && !moveable)
-	{
-		m_movement.X *= -1;
-		m_position.X += m_movement.X;
-	}
+	// if gravity used and moveable set grounded false
+	if (_useGravity && moveable)
+		m_grounded = false;
 
-	// if still moveable
+	// if still moveable set new position
 	if (moveable)
-	{
-		if (m_eType == SHOOTER)
-		{
-			// set position to next position (remove the X)
-			m_position.Y = nextPos.Y;
-		}
-		else
-		{
-			// set position to next position
-			m_position = nextPos;
-		}
+		// set next position
+		m_position = nextPos;
 
-
-		// if gravity used set grounded false
-		if (_useGravity)
-			m_isGrounded = false;
-	}
-
-	// if gravity used and not moveable
-	if (_useGravity && !moveable)
-	{
-		// reset fall time
-		m_fallTime = 0.0f;
-
-		// set grounded true
-		m_isGrounded = true;
-	}
+	// if not moveable and gravity true reset fall time
+	else if(_useGravity)
+		m_fallTime = 0;
 }
 #pragma endregion

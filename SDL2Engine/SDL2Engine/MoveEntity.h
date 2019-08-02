@@ -1,20 +1,15 @@
 #pragma once
 
 #pragma region system include
-#include <list> 
+#include <list>
 #pragma endregion
 
 #pragma region project include
 #include "TexturedEntity.h" 
-#include "EEnemyTypes.h"
-#pragma endregion
-
-#pragma region using
-using namespace std;
 #pragma endregion
 
 /// <summary>
-/// moveable entity class
+/// moveable object class
 /// </summary>
 class CMoveEntity : public CTexturedEntity
 {
@@ -25,10 +20,7 @@ public:
 	/// </summary>
 	/// <param name="_pos">position of object</param>
 	/// <param name="_size">width (x) and height (y) of object</param>
-	CMoveEntity(SVector2 _pos = SVector2(), SVector2 _size = SVector2()) : CTexturedEntity(_pos, _size) 
-	{
-		SetCollisionList();
-	}
+	CMoveEntity(SVector2 _pos = SVector2(), SVector2 _size = SVector2()) : CTexturedEntity(_pos, _size) {}
 
 	/// <summary>
 	/// constructor
@@ -36,10 +28,7 @@ public:
 	/// <param name="_pos">position of object</param>
 	/// <param name="_size">width and height of object</param>
 	/// <param name="_pFileName">absolute file path name</param>
-	CMoveEntity(SVector2 _pos, SVector2 _size, const char* _pFileName) : CTexturedEntity(_pos, _size, _pFileName)
-	{
-		SetCollisionList();
-	}
+	CMoveEntity(SVector2 _pos, SVector2 _size, const char* _pFileName) : CTexturedEntity(_pos, _size, _pFileName){}
 #pragma endregion
 
 #pragma region destructor
@@ -53,21 +42,21 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
 
 	/// <summary>
 	/// render every frame
 	/// </summary>
-	void Render() override;
+	virtual void Render() override;
 #pragma endregion
 
 #pragma region public inline function
 	/// <summary>
 	/// activate gravity
 	/// </summary>
-	inline void ActiveGravity() { m_gravity = true; }
-	
+	inline void ActivateGravity() { m_gravity = true; }
+
 	/// <summary>
 	/// deactivate gravity
 	/// </summary>
@@ -96,32 +85,50 @@ public:
 	/// </summary>
 	/// <param name="_movement">movement values</param>
 	inline void SetMovement(SVector2 _movement) { m_movement = _movement; }
-#pragma endregion
 
 	/// <summary>
-	/// fill collision list with all entities near
+	/// set falle time
+	/// </summary>
+	/// <param name="_fallTime">fall time to set</param>
+	inline void SetFallTime(float _fallTime) { m_fallTime = _fallTime; }
+#pragma endregion
+
+#pragma region public function
+	/// <summary>
+	/// fill collision list with near collidable objects
 	/// </summary>
 	void SetCollisionList();
+#pragma endregion
 
 protected:
 #pragma region protected primitive variable
 	/// <summary>
-	/// gravity enabled
+	/// object moveable
+	/// </summary>
+	bool m_moveable = false;
+
+	/// <summary>
+	/// if gravity is active
 	/// </summary>
 	bool m_gravity = false;
 
 	/// <summary>
-	/// entity is on ground
+	/// if object falls not
 	/// </summary>
-	bool m_isGrounded = false;
+	bool m_grounded = false;
 
 	/// <summary>
 	/// movement speed
 	/// </summary>
-	float m_speed;
+	float m_speed = 0.0f;
 
 	/// <summary>
-	/// time since fall begin
+	/// timer until collision list update
+	/// </summary>
+	float m_colTimer = 0.0f;
+
+	/// <summary>
+	/// time that object is in air
 	/// </summary>
 	float m_fallTime = 0.0f;
 #pragma endregion
@@ -130,44 +137,31 @@ protected:
 	/// <summary>
 	/// movement values
 	/// </summary>
-	SVector2 m_movement;
+	SVector2 m_movement = SVector2();
+#pragma endregion
+
+#pragma region protected pointer
+	/// <summary>
+	/// collision target
+	/// </summary>
+	CTexturedEntity* m_pColTarget;
 
 	/// <summary>
-	/// type of enemy
+	/// list with all collision objects in range
 	/// </summary>
-	EEnemyTypes m_eType = WALKER;
+	std::list<CTexturedEntity*> m_pCol;
 #pragma endregion
 
 private:
-#pragma region private primitive variable
-	/// <summary>
-	/// time until collision check
-	/// </summary>
-	float m_colTimer = 0.0f;
-#pragma endregion
 
-	protected:
-#pragma region private primitive variable
-	/// <summary>
-	/// check if player attacks
-	/// </summary>
-	bool m_attack = false;
-#pragma endregion
-
-#pragma region private variable
-	/// <summary>
-	/// list of all entities near for collision check
-	/// </summary>
-	list<CTexturedEntity*> m_pColEntities;
-#pragma endregion
-
-	private:
 #pragma region private function
 	/// <summary>
-	/// check collision by movement and gravity
+	/// check collision with collidable objects list
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	/// <param name="_useGravity">use gravity for check</param>
-	void CheckCollision(float _deltaTime, bool _useGravity);
+	/// <param name="_deltaSeconds">time since last frame</param>
+	/// <param name="_movement">movmenet to move to</param>
+	/// <param name="_speed">movement speed</param>
+	/// <param name="_useGravity">if gravity movement</param>
+	void CheckCollision(float _deltaSeconds, SVector2 _movement, float _speed, bool _useGravity);
 #pragma endregion
 };

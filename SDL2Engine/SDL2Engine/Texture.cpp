@@ -1,4 +1,4 @@
-#pragma region SDL2 include
+#pragma region sdl inlude
 #include <SDL_image.h>
 #pragma endregion
 
@@ -13,14 +13,13 @@
 // constructor
 CTexture::CTexture(const char * _pFileName)
 {
-	// if texture null return
-	if (!_pFileName)
-		return;
+	// initialize renderer nullptr
+	m_pTexture = nullptr;
 
-	// load texture
-	m_pTexture = IMG_LoadTexture(
-		RENDERER->GetSDLRenderer(),			// sdl renderer
-		GetAssetPath(_pFileName, 4).c_str());	// absolute asset path
+	// if file name valid load texture
+	if(_pFileName)
+		m_pTexture = IMG_LoadTexture(RENDERER->GetSDLRenderer(),
+			GetAssetPath(_pFileName, 4).c_str());
 }
 #pragma endregion
 
@@ -28,7 +27,8 @@ CTexture::CTexture(const char * _pFileName)
 // destructor
 CTexture::~CTexture()
 {
-	// destroy texture
-	SDL_DestroyTexture(m_pTexture);
+	// if texture valid destroy texture
+	if (m_pTexture)
+		SDL_DestroyTexture(m_pTexture);
 }
 #pragma endregion

@@ -12,7 +12,7 @@ class SDL_Renderer;
 #pragma endregion
 
 /// <summary>
-/// renderer class to render textures
+/// class to render images
 /// </summary>
 class CRenderer
 {
@@ -33,38 +33,42 @@ public:
 #pragma endregion
 
 #pragma region public inline function
-	inline SVector2 GetCamera() { return m_camera; }
-
-	/// <summary>
-	/// set camera position
-	/// </summary>
-	/// <param name="_pos">position to set</param>
-	inline void SetCamera(SVector2 _pos) { m_camera = _pos; }
-
 	/// <summary>
 	/// get sdl renderer
 	/// </summary>
 	/// <returns>sdl renderer reference</returns>
 	inline SDL_Renderer* GetSDLRenderer() { return m_pRenderer; }
+
+	/// <summary>
+	/// get camera position
+	/// </summary>
+	/// <returns>camera position</returns>
+	inline SVector2 GetCamera() { return m_camera; }
+
+	/// <summary>
+	/// set position of camera
+	/// </summary>
+	/// <param name="_pos">position to set</param>
+	inline void SetCamera(SVector2 _pos) { m_camera = _pos; }
 #pragma endregion
 
-#pragma region public funtion
+#pragma region public function
 	/// <summary>
-	/// clear current screen
+	/// clear screen
 	/// </summary>
 	void ClearScreen();
 
 	/// <summary>
 	/// render texture
 	/// </summary>
-	/// <param name="_pTexture">texture reference</param>
-	/// <param name="_pDstRect">destination rect on screen reference</param>
-	/// <param name="_pSrcRect">source rect of texture reference</param>
-	/// <param name="_angle">angle of texture</param>
-	/// <param name="_mirror">x != 0 than mirror horizontal, y != 0 than mirror vertical</param>
-	/// <param name="_inWorld">texture is rendered in world or screen (UI)</param>
-	void RenderTexture(CTexture* _pTexture, SRect* _pDstRect = nullptr, SRect* _pSrcRect = nullptr, 
-		float _angle = 0.0f, SVector2 _mirror = SVector2(), bool _inWorld = true);
+	/// <param name="_pTexture">texture to render</param>
+	/// <param name="_dstRect">destination rect reference</param>
+	/// <param name="_srcRect">source rect reference</param>
+	/// <param name="_angle">angle</param>
+	/// <param name="_mirror">mirror (x != 0 horizontal, y != 0 vertical)</param>
+	/// <param name="_inWorld">object is rendered with camera offset or screen</param>
+	void RenderTexture(CTexture* _pTexture, SRect* _dstRect = nullptr, SRect* _srcRect = nullptr, 
+		float _angle = 0, SVector2 _mirror = SVector2(), bool _inWorld = true);
 
 	/// <summary>
 	/// present rendered screen

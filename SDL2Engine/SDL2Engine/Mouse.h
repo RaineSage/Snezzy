@@ -18,13 +18,17 @@ public:
 	/// <summary>
 	/// constructor
 	/// </summary>
-	CMouse() : CTexturedEntity() {}
+	CMouse() : CMouse(SVector2()) {}
 
 	/// <summary>
 	/// constructor
 	/// </summary>
 	/// <param name="_size">width (x) and height (y) of mouse</param>
-	CMouse(SVector2 _size) : CTexturedEntity(SVector2(), _size) {}
+	CMouse(SVector2 _size) : CTexturedEntity(SVector2(), _size)
+	{
+		// set mouse rendered in world false
+		m_inWorld = false;
+	}
 #pragma endregion
 
 #pragma region destructor
@@ -38,8 +42,8 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
 
 	/// <summary>
 	/// render every frame
@@ -84,6 +88,6 @@ private:
 	/// upper left is 0,0
 	/// lower right is 1,1
 	/// </summary>
-	SVector2 m_center;
+	SVector2 m_center = SVector2();
 #pragma endregion
 };

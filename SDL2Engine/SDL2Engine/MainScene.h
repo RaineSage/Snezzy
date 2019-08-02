@@ -2,17 +2,15 @@
 
 #pragma region project include
 #include "Scene.h"
-#include "Vector2.h"
 #pragma endregion
 
 #pragma region forward decleration
-class CTexturedEntity;
 class GWorld;
 class CMusic;
 #pragma endregion
 
 /// <summary>
-/// game main scene class
+/// main game scene
 /// </summary>
 class GMainScene : public CScene
 {
@@ -24,45 +22,46 @@ public:
 	GMainScene() : CScene() {}
 #pragma endregion
 
-#pragma region public override function
+#pragma region destructor
 	/// <summary>
-	/// initialize scene
+	/// destructor
 	/// </summary>
-	virtual void Init() override;
+	virtual ~GMainScene() { Clean(); }
+#pragma endregion
 
+#pragma region public function
 	/// <summary>
-	/// update every frame
+	/// load scene
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
-
-	/// <summary>
-	/// render every frame
-	/// </summary>
-	virtual void Render() override;
+	virtual void Load() override;
 
 	/// <summary>
 	/// clean scene
 	/// </summary>
 	virtual void Clean() override;
+
+	/// <summary>
+	/// update every frame
+	/// </summary>
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
+
+	/// <summary>
+	/// render every frame
+	/// </summary>
+	virtual void Render() override;
 #pragma endregion
 
+private:
 #pragma region private pointer
 	/// <summary>
-	/// player texture
-	/// </summary>
-	CTexturedEntity* m_pPlayer = nullptr;
-
-	/// <summary>
-	/// enemy texture
-	/// </summary>
-	CTexturedEntity* m_pEnemy = nullptr;
-
-	/// <summary>
-	/// world reference
+	/// world
 	/// </summary>
 	GWorld* m_pWorld = nullptr;
 
-	CMusic* m_pAmbient = nullptr;
+	/// <summary>
+	/// background music
+	/// </summary>
+	CMusic* m_pMusic = nullptr;
 #pragma endregion
 };

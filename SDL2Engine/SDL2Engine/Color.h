@@ -1,6 +1,6 @@
 #pragma once
 
-#pragma region system include
+#pragma region sdl include
 #include <SDL.h>
 #pragma endregion
 

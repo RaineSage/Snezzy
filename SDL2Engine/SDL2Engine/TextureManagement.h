@@ -30,10 +30,13 @@ public:
 	/// </summary>
 	~CTextureManagement()
 	{
-		while (!m_pTextures.size())
+		// while textures in map
+		while (m_pTextures.size() > 0)
 		{
+			// delete first texture
 			delete m_pTextures.begin()->second;
 
+			// erase first element
 			m_pTextures.erase(m_pTextures.begin());
 		}
 	}
@@ -57,11 +60,14 @@ public:
 	/// <returns>texture</returns>
 	CTexture* GetTexture(string _name)
 	{
+		// texture for return
 		CTexture* pTexture = nullptr;
 
+		// if key string exists
 		if (m_pTextures.find(_name) != m_pTextures.end())
 			pTexture = m_pTextures.find(_name)->second;
 
+		// return texture or nullptr
 		return pTexture;
 	}
 #pragma endregion

@@ -14,7 +14,7 @@ public:
 	/// <summary>
 	/// constructor
 	/// </summary>
-	/// <param name="_pFileName">relative path name of texture</param>
+	/// <param name="_pFileName">file name in absolute path</param>
 	CTexture(const char* _pFileName);
 #pragma endregion
 
@@ -35,8 +35,8 @@ public:
 	/// <summary>
 	/// set sdl texture
 	/// </summary>
-	/// <param name="_pTexture">sdl texture to set</param>
-	inline void SetSDLTexture(SDL_Texture* _pTexture) { m_pTexture = _pTexture; }
+	/// <param name="_pSDLTexture">sdl texture</param>
+	inline void SetSDLTexture(SDL_Texture* _pSDLTexture) { m_pTexture = _pSDLTexture; }
 #pragma endregion
 
 private:

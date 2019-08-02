@@ -19,10 +19,10 @@ public:
 
 #pragma region public inline function
 	/// <summary>
-	/// get time since last frame in seconds
+	/// get time since last frame
 	/// </summary>
-	/// <returns>time since last frame in seconds</returns>
-	static inline float GetDeltaTime() { return m_deltaTime > 0.2f ? 0.0f : m_deltaTime; }
+	/// <returns></returns>
+	static inline float GetDeltaTime() { return m_deltaTime > 1 ? 0 : m_deltaTime; }
 
 	/// <summary>
 	/// get frames per second
@@ -33,7 +33,7 @@ public:
 
 #pragma region public function
 	/// <summary>
-	/// update time
+	/// update every frame
 	/// </summary>
 	void Update();
 #pragma endregion
@@ -43,26 +43,26 @@ private:
 	/// <summary>
 	/// frames per second
 	/// </summary>
-	static short m_fps;
+	static int m_fps;
 
 	/// <summary>
-	/// frames since last update
-	/// </summary>
-	int m_framesSinceLastUpdate = 0;
-
-	/// <summary>
-	/// time since last update in seconds
+	/// time since last frame in seconds
 	/// </summary>
 	static float m_deltaTime;
 
 	/// <summary>
-	/// last update time stamp
+	/// frames since last time stamp
 	/// </summary>
-	clock_t m_lastUpdate = 0.0f;
+	int m_framesSinceLastTimeStamp;
+
+	/// <summary>
+	/// last updated time point
+	/// </summary>
+	clock_t m_lastUpdate;
 
 	/// <summary>
 	/// time since last time stamp
 	/// </summary>
-	clock_t m_timeSinceLastTimeStamp = 0.0f;
+	clock_t m_timeSinceLastTimeStamp;
 #pragma endregion
 };

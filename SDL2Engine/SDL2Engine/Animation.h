@@ -55,8 +55,8 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	void Update(float _deltaTime);
+	/// <param name="_deltaSeconds">time since last frame</param>
+	void Update(float _deltaSeconds);
 
 	/// <summary>
 	/// get current position in texture
@@ -75,12 +75,12 @@ private:
 	/// <summary>
 	/// frames count of animation
 	/// </summary>
-	int m_count;
+	int m_count = 0;
 
 	/// <summary>
 	/// animation time until full animation played
 	/// </summary>
-	float m_animationTime;
+	float m_animationTime = 0.0f;
 
 	/// <summary>
 	/// current time
@@ -92,11 +92,11 @@ private:
 	/// <summary>
 	/// start position of animation in texture
 	/// </summary>
-	SVector2 m_startPos;
+	SVector2 m_startPos = SVector2();
 
 	/// <summary>
 	/// size of single frame in animation (x = width, y = height)
 	/// </summary>
-	SVector2 m_size;
+	SVector2 m_size = SVector2();
 #pragma endregion
 };

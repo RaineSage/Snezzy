@@ -1,19 +1,15 @@
 #pragma once
 
-#pragma region project include
-#include "Engine.h"
-#include "ContentManagement.h"
-#include "MenuScene.h"
-#include "Font.h"
-#include "Texture.h"
+#pragma region forward decleration
+class CFont;
 #pragma endregion
 
 #pragma region value macro
-#define GAME GGame::Get() 
+#define GAME GGame::Get()
 #pragma endregion
 
 /// <summary>
-/// core game class
+/// game class for game logic 
 /// </summary>
 class GGame
 {
@@ -23,21 +19,31 @@ public:
 	/// constructor
 	/// </summary>
 	GGame() {}
+
+	/// <summary>
+	/// destructor
+	/// </summary>
+	~GGame() {}
 #pragma endregion
 
-	CFont* m_PFreescript = nullptr;
+#pragma region public variable
+	/// <summary>
+	/// arial font
+	/// </summary>
+	CFont* m_PArial = nullptr;
+#pragma endregion
 
 #pragma region public inline function
 	/// <summary>
-	/// get game reference
+	/// get game
 	/// </summary>
-	/// <returns>game reference</returns>
+	/// <returns>game</returns>
 	inline static GGame* Get()
 	{
-		// static local variable is used as global
+		// create game if not exists
 		static GGame* pGame = new GGame();
 
-		// return game reference
+		// return game
 		return pGame;
 	}
 #pragma endregion
@@ -46,19 +52,11 @@ public:
 	/// <summary>
 	/// initialize game
 	/// </summary>
-	void Init()
-	{
-		m_PFreescript = new CFont("Font/F_Freescript.TTF", 32);
+	void Init();
 
-		CTM->Clear();
-
-		// change scene to new main scene
-		ENGINE->ChangeScene(new GMenuScene());
-	}
-
-	void QuitGame()
-	{
-		ENGINE->Stop();
-	}
+	/// <summary>
+	/// clean game
+	/// </summary>
+	void Clean();
 #pragma endregion
 };

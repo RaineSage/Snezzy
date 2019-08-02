@@ -4,18 +4,16 @@
 #pragma endregion
 
 /// <summary>
-/// main entry point
+/// main entry of engine
 /// </summary>
-/// <param name="argc">number of arguments</param>
-/// <param name="argv">arguments array</param>
 /// <returns>shutdown code</returns>
-int main(int argc, char* argv[])
+int main()
 {
-	// result by initialize engine
-	int result = ENGINE->Init();
+	// shut down result
+	int result;
 
-	// if result 0
-	if (!result)
+	// init engine and load images
+	if ((result = ENGINE->Init()) == 0 && !(result = ENGINE->Load()))
 	{
 		// initialize game
 		GAME->Init();
@@ -24,9 +22,12 @@ int main(int argc, char* argv[])
 		ENGINE->Run();
 	}
 
+	// clean game
+	GAME->Clean();
+
 	// clean engine
 	ENGINE->Clean();
 
-	// shut down correctly
-	return 0;
+	// return result
+	return result;
 }

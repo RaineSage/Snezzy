@@ -1,7 +1,7 @@
 #pragma once
 
 /// <summary>
-/// vector 2 struct
+/// 2D vector class
 /// </summary>
 struct SVector2
 {
@@ -33,24 +33,24 @@ public:
 
 #pragma region operator
 	/// <summary>
-	/// vector 2 + vector 2
+	/// vector2 + vector2
 	/// </summary>
-	/// <param name="_vec">other vector 2d</param>
-	/// <returns>new vector 2d</returns>
+	/// <param name="_vec">other 2D vector</param>
+	/// <returns>new 2D vector</returns>
 	SVector2 operator + (SVector2 _vec)
 	{
-		// return new vector by add other vector components to this components
+		// returns new 2D vector
 		return SVector2(X + _vec.X, Y + _vec.Y);
 	}
 
 	/// <summary>
-	/// vector 2 * float
+	/// vector2 * float
 	/// </summary>
-	/// <param name="_value">float to multiply</param>
-	/// <returns>new vector 2d with every component multiplied by value</returns>
-	SVector2 operator * (float _value)
+	/// <param name="_value">float value</param>
+	/// <returns>new vector2</returns>
+	SVector2 operator*(float _value)
 	{
-		// return new vector by multiply x and y value with given float value
+		// return new vector2
 		return SVector2(X * _value, Y * _value);
 	}
 #pragma endregion

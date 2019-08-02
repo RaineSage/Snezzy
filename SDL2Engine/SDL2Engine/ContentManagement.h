@@ -6,19 +6,20 @@
 
 #pragma region project include
 #include "Entity.h"
-#include "Vector2.h"
 #pragma endregion
 
+#pragma region forward decleration
 class CMoveEntity;
+#pragma endregion
 
 #pragma region using
 using namespace std;
 #pragma endregion
 
 /// <summary>
-/// class to manage update, render and delete of all entities
+/// content management class
 /// </summary>
-class CContentManagement :	public CEntity
+class CContentManagement : public CEntity
 {
 public:
 #pragma region constructor
@@ -39,8 +40,8 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
 
 	/// <summary>
 	/// render every frame
@@ -50,96 +51,123 @@ public:
 
 #pragma region public inline function
 	/// <summary>
-	/// get all scene entities
+	/// get scene object list
 	/// </summary>
-	/// <returns>list of all scene entities</returns>
-	inline list<CEntity*> GetSceneEntities() { return m_pSceneEntities; }
+	/// <returns>list of scene objects</returns>
+	inline list<CEntity*> GetSceneObjects() { return m_pSceneObjects; }
 
 	/// <summary>
-	/// add entity to scene entities
+	/// add object to scene list
 	/// </summary>
-	/// <param name="_pEntity">entity reference to add</param>
-	inline void AddSceneEntity(CEntity* _pEntity) { AddEntity(_pEntity, m_pSceneEntities); }
+	/// <param name="_pObject">object</param>
+	inline void AddSceneObject(CEntity* _pObject) { AddObject(_pObject, m_pSceneObjects); }
 
 	/// <summary>
-	/// get all ui entities
+	/// get persistant object list
 	/// </summary>
-	/// <returns>list of all ui entities</returns>
-	inline list<CEntity*> GetUIEntities() { return m_pUIEntities; }
+	/// <returns>list of persistant objects</returns>
+	inline list<CEntity*> GetPersistantObjects() { return m_pPersistantObjects; }
 
 	/// <summary>
-	/// add entity to ui entities
+	/// add object to persistant list
 	/// </summary>
-	/// <param name="_pEntity">entity reference to add</param>
-	inline void AddUIEntity(CEntity* _pEntity) { AddEntity(_pEntity, m_pUIEntities); }
+	/// <param name="_pObject">object</param>
+	inline void AddPersistantObject(CEntity* _pObject) { AddObject(_pObject, m_pPersistantObjects); }
 
 	/// <summary>
-	/// get all persistent entities
+	/// get ui object list
 	/// </summary>
-	/// <returns>list of all persistent entities</returns>
-	inline list<CEntity*> GetPersistentEntities() { return m_pPersistentEntities; }
+	/// <returns>list of ui objects</returns>
+	inline list<CEntity*> GetUIObjects() { return m_pUIObjects; }
 
 	/// <summary>
-	/// add entity to persistent entities
+	/// add object to ui list
 	/// </summary>
-	/// <param name="_pEntity">entity reference to add</param>
-	inline void AddPersistentEntity(CEntity* _pEntity) { AddEntity(_pEntity, m_pPersistentEntities); }
-
-	inline list<CEntity*> GetCollisionEntities() { return m_pColEntities; }
+	/// <param name="_pObject">object</param>
+	inline void AddUIObject(CEntity* _pObject) { AddObject(_pObject, m_pUIObjects); }
 
 	/// <summary>
-	/// add entity to remove entities
+	/// clean all scene objects
 	/// </summary>
-	/// <param name="_pEntity">entity reference to remove</param>
-	inline void RemoveEntity(CEntity* _pEntity) { m_pRemoveEntities.push_back(_pEntity); }
+	inline void CleanSceneObjects() { CleanObjects(m_pSceneObjects); }
+
+	/// <summary>
+	/// clean all persistant objects
+	/// </summary>
+	inline void CleanPersistantObjects() { CleanObjects(m_pPersistantObjects); }
+
+	/// <summary>
+	/// clean all UI objects
+	/// </summary>
+	inline void CleanUIObjects() { CleanObjects(m_pUIObjects); }
 #pragma endregion
 
-	void SetupCollision(int _width);
-
-	void Clear();
-
-	list<CEntity*> GetCollisionRowColumn(SVector2 _pos);
-
-private:
-#pragma region private variable
+#pragma region public function
 	/// <summary>
-	/// list with all scene entity references
+	/// remove object from game
 	/// </summary>
-	list<CEntity*> m_pSceneEntities;
+	/// <param name="_pObject">object</param>
+	void RemoveObject(CEntity* _pObject);
 
 	/// <summary>
-	/// list with all ui entity references
+	/// sort list by layer
 	/// </summary>
-	list<CEntity*> m_pUIEntities;
-
-	/// <summary>
-	/// list with all persistent entity references
-	/// </summary>
-	list<CEntity*> m_pPersistentEntities;
-
-	list<CMoveEntity*> m_pMoveEntities;
-
-	list<CEntity*> m_pColEntities;
-
-	list<list<CEntity*>> m_colRowColumn;
-
-	/// <summary>
-	/// list of all entities to remove next frame
-	/// </summary>
-	list<CEntity*> m_pRemoveEntities;
+	/// <param name="_pList">list</param>
+	void SortList(list<CEntity*> &_pList);
 #pragma endregion
 
 private:
-	float m_colTimer = 0.0f;
+#pragma region private primitive variable
+	/// <summary>
+	/// time until collision check
+	/// </summary>
+	float m_collisionTime = 0.0f;
 
-	float m_colCheckTime = 0.0f;
+	/// <summary>
+	/// current collision check time
+	/// </summary>
+	float m_currentColTime = 0.0f;
+#pragma endregion
+
+#pragma region private pointer
+	/// <summary>
+	/// list of all scene objects
+	/// </summary>
+	list<CEntity*> m_pSceneObjects;
+
+	/// <summary>
+	/// list of all persistant objects
+	/// </summary>
+	list<CEntity*> m_pPersistantObjects;
+
+	/// <summary>
+	/// list of all ui objects
+	/// </summary>
+	list<CEntity*> m_pUIObjects;
+
+	/// <summary>
+	/// list of all move objects
+	/// </summary>
+	list<CMoveEntity*> m_pMoveObjects;
+
+	/// <summary>
+	/// list of objects to remove
+	/// </summary>
+	list<CEntity*> m_pRemoveObjects;
+#pragma endregion
 
 #pragma region private function
 	/// <summary>
-	/// add entity to list
+	/// add object to list
 	/// </summary>
-	/// <param name="_pEntity">entity reference to add</param>
-	/// <param name="_pList">list reference to add to</param>
-	void AddEntity(CEntity* _pEntity, list<CEntity*>& _pList);
+	/// <param name="_pObject">object</param>
+	/// <param name="_pList">list</param>
+	void AddObject(CEntity* _pObject, list<CEntity*> &_pList);
+
+	/// <summary>
+	/// clean all objects in list
+	/// </summary>
+	/// <param name="_list">list</param>
+	void CleanObjects(list<CEntity*> &_list);
 #pragma endregion
 };

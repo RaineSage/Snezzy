@@ -5,7 +5,7 @@
 #pragma endregion
 
 /// <summary>
-/// base entity class
+/// base object class
 /// </summary>
 class CEntity
 {
@@ -17,12 +17,44 @@ public:
 	CEntity() {}
 #pragma endregion
 
+#pragma region inline function
+	/// <summary>
+	/// get tag
+	/// </summary>
+	/// <returns>tag</returns>
+	inline const char* GetTag() { return m_pTag; }
+
+	/// <summary>
+	/// set tag
+	/// </summary>
+	/// <param name="_pTag">tag to set</param>
+	void SetTag(const char* _pTag) { m_pTag = _pTag; }
+
+	/// <summary>
+	/// get position of object
+	/// </summary>
+	/// <returns>position of object</returns>
+	inline SVector2 GetPosition() { return m_position; }
+
+	/// <summary>
+	/// set position of object
+	/// </summary>
+	/// <param name="_pos">position to set</param>
+	inline void SetPosition(SVector2 _pos) { m_position = _pos; }
+
+	/// <summary>
+	/// add vector2 to position
+	/// </summary>
+	/// <param name="_vec2"></param>
+	inline void AddPosition(SVector2 _vec2) { m_position = m_position + _vec2; }
+#pragma endregion
+
 #pragma region public function
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) = 0;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) = 0;
 
 	/// <summary>
 	/// render every frame
@@ -30,49 +62,17 @@ public:
 	virtual void Render() = 0;
 #pragma endregion
 
-#pragma region public inline function
-	/// <summary>
-	/// get tag of entity
-	/// </summary>
-	/// <returns>tag of entity</returns>
-	inline const char* GetTag() { return m_pTag; }
-
-	/// <summary>
-	/// set tag of entity
-	/// </summary>
-	/// <param name="_pTag">tag to set</param>
-	inline void SetTag(const char* _pTag) { m_pTag = _pTag; }
-
-	/// <summary>
-	/// get position of entity
-	/// </summary>
-	/// <returns>position of entity</returns>
-	inline SVector2 GetPosition() { return m_position; }
-
-	/// <summary>
-	/// set position of entity
-	/// </summary>
-	/// <param name="_vec">position to set</param>
-	inline void SetPosition(SVector2 _vec) { m_position = _vec; }
-
-	/// <summary>
-	/// add vector2 to position of entity
-	/// </summary>
-	/// <param name="_vec">vector2 to add</param>
-	inline void AddPosition(SVector2 _vec) { m_position = m_position + _vec; }
-#pragma endregion
-
 protected:
 #pragma region protected primitive variable
 	/// <summary>
-	/// tag of entity
+	/// tag of object
 	/// </summary>
-	const char* m_pTag = "";
+	const char* m_pTag = nullptr;
 #pragma endregion
 
 #pragma region protected variable
 	/// <summary>
-	/// position of entity
+	/// position of object
 	/// </summary>
 	SVector2 m_position = SVector2();
 #pragma endregion

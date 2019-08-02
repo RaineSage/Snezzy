@@ -2,23 +2,22 @@
 #include "MoveEnemy.h"
 #include "Config.h"
 #include "Bullet.h"
-#include "TextureManagement.h"
-#include "Texture.h"
-#include "Engine.h"
 #include "ContentManagement.h"
+#include "Engine.h"
+#include "Sound.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
-void GMoveEnemy::Update(float _deltaTime)
+void GMoveEnemy::Update(float _deltaSeconds)
 {
-	CMoveEntity::Update(_deltaTime);
+	// update parent
+	CMoveEntity::Update(_deltaSeconds);
 
-	CMoveEntity::m_eType = m_eType;
-
-	if (m_eType == JUMPER && m_isGrounded)
+	// jumping for enemy type JUMPER
+	if (m_eType == JUMPER && m_grounded)
 	{
-		m_time += _deltaTime;
+		m_time += _deltaSeconds;
 
 		if (m_time >= m_jumpInter)
 		{
@@ -27,45 +26,41 @@ void GMoveEnemy::Update(float _deltaTime)
 		}
 	}
 
-	if (m_eType == SHOOTER) 
+	// shooting for enemy type Shooter
+	if (m_eType == SHOOTER)
 	{
-		//m_time += _deltaTime;
-		//
-		//if (m_time >= m_shotInter)
-		//{
-		//	// create bullet
-		//	GBullet* pBullet = new GBullet(
-		//		SVector2(m_position.X - (CConfig::s_BlockWidth + 10.0f), m_position.Y - 10.0f),
-		//		SVector2(CConfig::s_BlockWidth, CConfig::s_BlockHeight),
-		//		nullptr
-		//	);
-		//	
-		//	CTexture* pTexture = TTM->GetTexture("Bullet");
-		//	
-		//	if (!pTexture)
-		//	{
-		//		TTM->AddTexture("Bullet", new CTexture("Texture/Bullet/T_Bullet.bmp"));
-		//		pTexture = TTM->GetTexture("Bullet");
-		//	}
-		//	
-		//	pBullet->SetTexture(pTexture);
-		//	
-		//	// set player tag, collision type to dynamic and speed
-		//	pBullet->SetTag("Bullet");
-		//	pBullet->SetColType(ECollisionType::DYNAMIC);
-		//	pBullet->ActiveGravity();
-		//	
-		//	// add player to ctm
-		//	CTM->AddPersistentEntity(pBullet);
-		//	
-		//	m_time = 0.0f;
-		//}
+		m_time += _deltaSeconds;
+		
+		if (m_time >= m_shotInter)
+		{
+			// create bullet
+			GBullet* pBullet = new GBullet(SVector2(), SVector2(8, 8), "Texture/Bullet/T_Bullet.png");
+
+			// spawn left (-1) or right (1) from player
+			int spawnSide = -1;
+
+			// set values
+			pBullet->SetTag("Bullet");
+			pBullet->SetPosition(SVector2(m_position.X + spawnSide * m_rect.w, m_position.Y + m_rect.h * 0.25f));
+			pBullet->SetColType(ECollisionType::WALL);
+			pBullet->SetSpeed(GConfig::s_BulletSpeed);
+			pBullet->SetMovement(SVector2(spawnSide, 0.0f));
+
+			// add bullet to content management
+			CTM->AddPersistantObject(pBullet);
+
+			// play shot sound
+			m_pShot->Play();
+
+			m_time = 0.0f;
+		}
 	}
 }
 
 // render every frame
 void GMoveEnemy::Render()
 {
+	// render parent
 	CMoveEntity::Render();
 }
 #pragma endregion
@@ -74,16 +69,26 @@ void GMoveEnemy::Render()
 // initialize move enemy
 void GMoveEnemy::Init()
 {
-	m_gravity = true;
-	m_speed = CConfig::s_MoveEnemySpeed;
-
+	// set tag
 	m_pTag = "Enemy";
 
-	m_colType = ECollisionType::DYNAMIC;
+	// set gravity and speed
+	m_gravity = true;
+	m_speed = GConfig::s_MoveEnemySpeed;
 
-	if (rand() % 2)
-		m_movement.X = -1.0f;
-	else
-		m_movement.X = 1.0f;
+	// set col type
+	m_colType = ECollisionType::MOVE;
+
+	if (m_eType != SHOOTER)
+	{
+		// random movement x
+		if (rand() % 2)
+			m_movement.X = 1.0f;
+		else
+			m_movement.X = -1.0f;
+	}
+
+	// create shot sound
+	m_pShot = new CSound("Audio/S_Shot.wav");
 }
 #pragma endregion

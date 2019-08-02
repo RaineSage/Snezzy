@@ -1,15 +1,17 @@
+#pragma region system include
+#include <string>
 #include <SDL_image.h>
+#pragma endregion
 
 #pragma region project include
 #include "World.h"
-#include "Config.h"
 #include "Engine.h"
 #include "ContentManagement.h"
-#include "TextureManagement.h"
-#include "Player.h"
-#include "Helper.h"
-#include "MoveEnemy.h"
+#include "Config.h"
 #include "Texture.h"
+#include "Player.h"
+#include "MoveEnemy.h"
+#include "Helper.h"
 #pragma endregion
 
 #pragma region using
@@ -20,276 +22,212 @@ using namespace std;
 // initlialize world
 void GWorld::Init()
 {
-	// world in chars
+	// create world texture
+	//m_pTexture = new CTexture("Texture/World/T_WorldSide.png");
+
+	// string that defines world
 	string world;
 
-	// 0 = background
-	// X = dirt
-	// W = way
-	// L = lava
-	// S = player start position
-	// E = move enemy
-	/*world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX0S000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX000000000000000000000000000000000000000000000E0000000000000000000000000000000000000000000000XXXX\n";
-	world += "XXXX000000000000000000000000000000000000000000000000000000E0000000000000000000000000000000E00000XXXX\n";
-	world += "XXXX0000000000000000000000000000000000000000WWWWWWWWW000000000000000000000000000000E000000000000XXXX\n";
-	world += "XXXX0000000000WWW000000000000000E000000WWWWWXXXXXXXXXWWWWWWWW0000000000E0000000000000WWWWWWWWWWWXXXX\n";
-	world += "XXXX00000WWWWWXXXWWWW0000000000000WWWWWXXXXXXXXXXXXXXXXXXXXXXWW000000000000000000WWWWXXXXXXXXXXXXXXX\n";
-	world += "XXXXWWWWWXXXXXXXXXXXXWWWLWWWWLWWWWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXWWWWWLWWWWWLWWWWWWXXXXXXXXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";*/
+	// add lines to string
+	// string is 100x20
+	// 1 block is 64 x 64 pixel
+	// screen has 20 (width) and 12 (height) blocks
+	// X / red 128 = dirt (outside)
+	// 0 / red 64 = black (free)
+	// W / red 192 = way (walk on)
+	// I / red 255 = lava (death)
+	// E / blue = enemy WALKER
+	// J / enemy JUMPER
+	// F / enemy SHOOTER
+	// S / green = start
+	
+	// load world from txt file
+	world = LoadStringFromFile("Save/World.txt");
 
-	bool loadString = true;
+	// load world from bmp file
+	//world = LoadWorldFromBmp("Save/World.png");
 
-	if (loadString)
-	{
-		world = LoadStringFromFile("Files/World.ini");
-	}
-	else
-	{
-		world = LoadWorldFromImage("Texture/World/T_World.png");
-	}
-
-	// width and height
+	// width and height of world
 	int width = 0, height = 0;
 
-	int widthOfWorld = 0;
-
-	// check every char of world
+	// through string
 	for (int i = 0; i < world.length(); i++)
 	{
-		// create textured entity
+		// create textured object
 		CTexturedEntity* pObj = new CTexturedEntity(
-			SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
-			SVector2(CConfig::s_BlockWidth, CConfig::s_BlockHeight),
-			nullptr
+			SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockWidth),	// position of block
+			SVector2(GConfig::s_BlockWidth, GConfig::s_BlockWidth)						// size of block
 		);
 
-		// set texture of block
+		// set texture of object
 		pObj->SetTexture(m_pTexture);
 
-		// add entity to ctm
-		CTM->AddSceneEntity(pObj);
+		// x position of texture in atlas map
+		int xPosOfTexture = 0;
 
-		// x position of texture in atlas texture
-		int xPosInTexture = 0;
-
-		// switch current char
+		// switch char in world string
 		switch (world[i])
 		{
-
-		// X char (dirt)
+		// if dirt set position of second texture in atlas map
 		case 'X':
-		{
-			// set x position of texture in atlas
-			xPosInTexture = 1 * CConfig::s_BlockAtlasWidth;
+			xPosOfTexture = GConfig::s_BlockAtlasWidth;
+			pObj->SetColType(ECollisionType::WALL);
 			break;
-		}
 
-		// W char (way)
+		// if way set position of third texture in atlas map
 		case 'W':
-		{
-			// set x position of texture in atlas
-			xPosInTexture = 2 * CConfig::s_BlockAtlasWidth;
-
-			// set collision type of way textured entity to static
-			pObj->SetColType(ECollisionType::STATIC);
+			xPosOfTexture = 2 * GConfig::s_BlockAtlasWidth;
+			pObj->SetColType(ECollisionType::WALL);
 			break;
-		}
 
-		// L char (lava)
-		case 'L':
-		{
-			// set x position of texture in atlas
-			xPosInTexture = 3 * CConfig::s_BlockAtlasWidth;
-
-			// set collision type of lava textured entity to static
-			pObj->SetColType(ECollisionType::STATIC);
+		// if fire set position of fourth texture in atlas map
+		case 'I':
+			xPosOfTexture = 3 * GConfig::s_BlockAtlasWidth;
+			pObj->SetColType(ECollisionType::MOVE);
 			break;
-		}
 
-		// S char (player start position)
+		// if player start position spawn player
 		case 'S':
 		{
-			// create player
-			GPlayer* pPlayer = new GPlayer(
-				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
-				SVector2(CConfig::s_BlockWidth, CConfig::s_BlockHeight * 1.75f),
-				nullptr
-			);
-
-			CTexture* pTexture = TTM->GetTexture("Player");
-
-			if (!pTexture)
-			{
-				TTM->AddTexture("Player", new CTexture("Texture/Character/Player/T_Player.png"));
-				pTexture = TTM->GetTexture("Player");
-			}
-
-			pPlayer->SetTexture(pTexture);
-
-			// set player tag, collision type to dynamic and speed
+			// initialize player
+			GPlayer* pPlayer = new GPlayer(SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 320),
+				SVector2(GConfig::s_BlockWidth, GConfig::s_BlockHeight * 1.5f), "Texture/Player/T_Player.png");
+			pPlayer->Init();
+			pPlayer->SetSpeed(GConfig::s_BlockWidth * 1.0f);
+			pPlayer->ActivateGravity();
+			pPlayer->SetCollisionList();
 			pPlayer->SetTag("Player");
-			pPlayer->SetColType(ECollisionType::DYNAMIC);
-			pPlayer->SetSpeed(CConfig::s_PlayerSpeed);
-			pPlayer->ActiveGravity();
 
-			// add player to ctm
-			CTM->AddPersistentEntity(pPlayer);
+			// add player to persistant
+			CTM->AddPersistantObject(pPlayer);
 			break;
 		}
 
-		// create enemy WALKER
+		// if enemy spwawn enemy WALKER
 		case 'E':
 		{
-			GMoveEnemy* pEnemy = new GMoveEnemy(
-				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
-				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
-				nullptr
-			);
+			// create enemy
+			GMoveEnemy* pEnemy = new GMoveEnemy(SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(GConfig::s_MoveEnemyWidth, GConfig::s_MoveEnemyHeight), "Texture/Enemy/T_MoveEnemy.png");
 
-			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
-
-			if (!pTexture)
-			{
-				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
-				pTexture = TTM->GetTexture("MoveEnemy");
-			}
-
-			pEnemy->SetTexture(pTexture);
-
+			// initialize enemy and add to persistant
 			pEnemy->Init();
-			CTM->AddPersistentEntity(pEnemy);
+			pEnemy->SetCollisionList();
+			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
 
-		// create enemy JUMPER
+		// if enemy spwawn enemy JUMPER
 		case 'J':
 		{
-			GMoveEnemy* pEnemy = new GMoveEnemy(
-				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
-				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
-				nullptr
-			);
+			// create enemy
+			GMoveEnemy* pEnemy = new GMoveEnemy(SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(GConfig::s_MoveEnemyWidth, GConfig::s_MoveEnemyHeight), "Texture/Enemy/T_MoveEnemy.png");
 
-			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
-
-			if (!pTexture)
-			{
-				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
-				pTexture = TTM->GetTexture("MoveEnemy");
-			}
-
-			pEnemy->SetTexture(pTexture);
+			// initialize enemy and add to persistant
 			pEnemy->SetType(JUMPER);
-
 			pEnemy->Init();
-			CTM->AddPersistentEntity(pEnemy);
+			pEnemy->SetCollisionList();
+			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
 
-		// create enemy SHOOTER
+		// if enemy spwawn enemy SHOOTER
 		case 'F':
 		{
-			GMoveEnemy* pEnemy = new GMoveEnemy(
-				SVector2(width * CConfig::s_BlockWidth, height * CConfig::s_BlockHeight),
-				SVector2(CConfig::s_MoveEnemyWidth, CConfig::s_MoveEnemyHeight),
-				nullptr
-			);
+			// create enemy
+			GMoveEnemy* pEnemy = new GMoveEnemy(SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(GConfig::s_MoveEnemyWidth, GConfig::s_MoveEnemyHeight), "Texture/Enemy/T_MoveEnemy.png");
 
-			CTexture* pTexture = TTM->GetTexture("MoveEnemy");
-
-			if (!pTexture)
-			{
-				TTM->AddTexture("MoveEnemy", new CTexture("Texture/Character/Enemy/T_MoveEnemy.png"));
-				pTexture = TTM->GetTexture("MoveEnemy");
-			}
-
-			pEnemy->SetTexture(pTexture);
+			// initialize enemy and add to persistant
 			pEnemy->SetType(SHOOTER);
-
 			pEnemy->Init();
-			CTM->AddPersistentEntity(pEnemy);
+			pEnemy->SetCollisionList();
+			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
 
-		// default
 		default:
 			break;
 		}
 
-		// set source rect of current block
-		pObj->SetSrcRect(SRect(CConfig::s_BlockAtlasWidth, CConfig::s_BlockAtlasHeight, xPosInTexture, 0));
+		// set source rect of object
+		pObj->SetSrcRect(SRect(GConfig::s_BlockAtlasWidth, GConfig::s_BlockAtlasHeight, xPosOfTexture, 0));
+
+		// add object to scene list
+		CTM->AddSceneObject(pObj);
 
 		// increase width
 		width++;
 
-		// if current char is new line
+		// if new line increase height and reset width
 		if (world[i] == '\n')
 		{
-			// increase height and reset width
 			height++;
-			widthOfWorld = width;
 			width = 0;
 		}
 	}
-
-	CTM->SetupCollision(widthOfWorld);
 }
 #pragma endregion
 
-string GWorld::LoadWorldFromImage(const char* _pFileName)
+#pragma region private function
+// load world as string from bmp file
+string GWorld::LoadWorldFromBmp(const char* _pFile)
 {
+	// string to return
 	string text = "";
 
-	SDL_Surface* pWorld = IMG_Load(GetAssetPath(_pFileName, 4).c_str());
+	// create sdl surface from file
+	SDL_Surface* pWorld = IMG_Load(GetAssetPath(_pFile, 4).c_str());
 
+	// load pixels in char*
 	char* pPixels = (char*)pWorld->pixels;
 
+	// check all pixels
 	for (int i = 0; i < pWorld->w * pWorld->h; i++)
 	{
+		// get pixel colors
 		uint8_t r = pPixels[0];
 		uint8_t g = pPixels[1];
 		uint8_t b = pPixels[2];
 
-		// black = 0 = background
-		// white = X = dirt
-		// blue = W = way
-		// red = L = lava
-		// green = S = player start position
-		// yellow = E = move enemy
+		// if pixel is blue
+		if (r == 64)
+			text.append("0");
 
-		if (r == 0 && g == 0 && b == 0)
-			text += '0';
-		else if (r == 255 && g == 255 && b == 255)
-			text += 'X';
-		else if (r == 0 && g == 0 && b == 255)
-			text += 'W';
-		else if (r == 255 && g == 0 && b == 0)
-			text += 'L';
-		else if (r == 0 && g == 255 && b == 0)
-			text += 'S';
-		else if (r == 255 && g == 255 && b == 0)
-			text += 'E';
+		// if pixel is b
+		else if (r == 128)
+			text.append("X");
 
+		// if pixel is green
+		else if (r == 192)
+			text.append("W");
 
+		// if pixel is red
+		else if (r == 255)
+			text.append("I");
+
+		// if pixel is white
+		else if (b == 255)
+			text.append("E");
+
+		// if pixel is yellow
+		else if (g == 255)
+			text.append("S");
+
+		// if nothing hit add 0
+		else
+			text.append("0");
+
+		// increase pixel pointer of bytes per pixel
 		pPixels += pWorld->format->BytesPerPixel;
 
+		// if i is modulo width of world add new line
 		if ((i + 1) % pWorld->w == 0)
-			text += '\n';
+			text.append("\n");
 	}
 
-
+	// return string
 	return text;
 }
+#pragma endregion

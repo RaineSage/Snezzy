@@ -3,102 +3,79 @@
 #include "Input.h"
 #include "Engine.h"
 #include "Renderer.h"
+#include "ContentManagement.h"
 #include "Config.h"
+#include "MenuScene.h"
+#include "MainScene.h"
 #include "Animation.h"
 #include "Sound.h"
 #pragma endregion
 
 #pragma region public override function
-GPlayer::GPlayer(SVector2 _pos, SVector2 _size, const char * _pFileName)
-	: CMoveEntity(_pos, _size, _pFileName)
-{
-	// create idle animation
-	m_pIDLEAnim = new CAnimation(SVector2(0.0f, 0.0f),
-		SVector2(CConfig::s_PlayerSrcRectWidth, CConfig::s_PlayerSrcRectHeight), 1);
-
-	// set animation time of idle
-	m_pIDLEAnim->SetAnimationTime(2.0f);
-
-	// create walk animation
-	m_pWalkAnim = new CAnimation(SVector2(0.0f, 0.0f),
-		SVector2(CConfig::s_PlayerSrcRectWidth, CConfig::s_PlayerSrcRectHeight), 10);
-
-	// create attack animation
-	m_pAttackAnim = new CAnimation(SVector2(0, CConfig::s_PlayerSrcRectHeight),
-		SVector2(CConfig::s_PlayerSrcRectWidth, CConfig::s_PlayerSrcRectHeight), 1);;
-
-	// set animation time of walk
-	m_pWalkAnim->SetAnimationTime(1.5f);
-
-	// create jump sound
-	m_pJump = new CSound("Audio/Sounds/S_Jump.wav");
-	m_pJump->SetVolume(50);
-}
-#include "Physic.h"
-
 // update every frame
-void GPlayer::Update(float _deltaTime)
+void GPlayer::Update(float _deltaSeconds)
 {
-	// if delta time zero return
-	if (!_deltaTime)
-		return;
+	// if key w is pressed down jump
+	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && m_grounded)
+		SetFallTime(-GConfig::s_PlayerJump);
 
-	// reset movement
-	m_movement = SVector2();
-
-	// update CMoveEntity m_attack for collison check
-	CMoveEntity::m_attack = m_attack;
-
-	// if shift pressed attack
-	if (CInput::GetKeyDown(SDL_SCANCODE_LSHIFT))
+	// if key lshift is pressed
+	if (!m_attack && CInput::GetKeyDown(SDL_SCANCODE_LSHIFT))
 	{
 		m_attack = true;
 	}
 
-
-	// attack time baby!
+	// if m_attack true
 	if (m_attack)
 	{
+		m_movement.X = 0.0f;
+
+		// set current animation to attack
 		m_pCurrentAnim = m_pAttackAnim;
-		m_time += _deltaTime;
-		
-	
-		if (m_time >= m_attackTime)
+		m_time += _deltaSeconds;
+
+		if (m_time >= 1.0f)
 		{
 			m_attack = false;
 			m_time = 0.0f;
-		}
+		}		
 	}
 
-	// movement left
+	// if key a is pressed
 	else if (CInput::GetKey(SDL_SCANCODE_A))
 	{
-		// set movement, mirror and walk animation
-		m_movement.X = -1.0f;
-		m_mirror.X = true;
-		m_pCurrentAnim = m_pWalkAnim;
+		// set negative x movement and mirror horizontal
+		m_movement.X = -10.0f;
+		m_mirror.X = 1.0f;
+
+		// set current animation to run 
+		m_pCurrentAnim = m_pRunAnim;
 	}
 
-	// movement right
+	// if key d is pressed
 	else if (CInput::GetKey(SDL_SCANCODE_D))
 	{
-		// set movement, mirror and walk animation
- 		m_movement.X = 1.0f;
-		m_mirror.X = false;
-		m_pCurrentAnim = m_pWalkAnim;
+		// set positive x movement and mirror none
+		m_movement.X = 10.0f;
+		m_mirror.X = 0.0f;
+
+		// set current animation to run 
+		m_pCurrentAnim = m_pRunAnim;
 	}
 
-	// no input movement
+	// else no x movement
 	else if (!m_attack)
 	{
-		// set idle animation
-		m_pCurrentAnim = m_pIDLEAnim;
+		m_movement.X = 0.0f;
+
+		// set current animation to idle
+		m_pCurrentAnim = m_pIdleAnim;
 	}
 
-	// update current animation
-	m_pCurrentAnim->Update(_deltaTime);
+	// update animation
+	m_pCurrentAnim->Update(_deltaSeconds);
 
-	// set source rect by current animation
+	// set source from animation
 	m_srcRect = SRect(
 		m_pCurrentAnim->GetSize().X,
 		m_pCurrentAnim->GetSize().Y,
@@ -106,39 +83,18 @@ void GPlayer::Update(float _deltaTime)
 		m_pCurrentAnim->GetCurrentTexturePosition().Y
 	);
 
-	// if space pressed and grounded jump + attack false
-	if (CInput::GetKey(SDL_SCANCODE_SPACE) && m_isGrounded && !m_attack)
-	{
-		m_fallTime = -1.0f;
-		m_pJump->Play();
-	}
+	// destroy enemy when attack
+	if (m_pColTarget && (((m_attack || m_fallTime > 0) && m_pColTarget->GetTag() == "Enemy") || (m_attack &&  m_pColTarget->GetTag() == "Bullet")))
+		CTM->RemoveObject(m_pColTarget);	
+
+	// if collision target valid and is enemy destroy all and back to menu
+	else if (m_pColTarget && (m_pColTarget->GetTag() == "Enemy" || m_pColTarget->GetTag() == "Bullet"))
+		ENGINE->ChangeScene(new GMenuScene());	
 
 	// update parent
-	CMoveEntity::Update(_deltaTime);
+	CMoveEntity::Update(_deltaSeconds);
 
-	SRect rect = SRect(SVector2(1.0f, 1.0f), SVector2(
-		m_position.X + m_rect.w + 1.0f,
-		m_position.Y + m_rect.h * 0.5f
-	));
-
-	for (CEntity* pEntity : m_pColEntities)
-	{
-		CPhysic::RectRectCollision(rect, ((CTexturedEntity*)pEntity)->GetRect());
-
-	}
-
-	SRect rectP = SRect(SVector2(1.0f, 1.0f), SVector2(
-		m_position.X + m_rect.w + 2.0f,
-		m_position.Y + m_rect.h * 0.5f
-	));
-
-	for (CEntity* pEntity : m_pColEntities)
-	{
-		CPhysic::RectRectCollision(rectP, ((CTexturedEntity*)pEntity)->GetRect());
-
-	}
-
-	// set camera position
+	// parent camera to player
 	RENDERER->SetCamera(m_position);
 }
 
@@ -146,5 +102,29 @@ void GPlayer::Update(float _deltaTime)
 void GPlayer::Render()
 {
 	CMoveEntity::Render();
+}
+#pragma endregion
+
+#pragma region public function
+// initialize player
+void GPlayer::Init()
+{
+	// create idle animation
+	m_pIdleAnim = new CAnimation(SVector2(0.0f, GConfig::s_PlayerSrcRectHeight),
+		SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight), 1);
+
+	// create run animation
+	m_pRunAnim = new CAnimation(SVector2(), SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight), 10);
+	m_pRunAnim->SetAnimationTime(0.5f);
+
+	// create attack animation
+	m_pAttackAnim = new CAnimation(SVector2(0.0f, GConfig::s_PlayerSrcRectHeight),
+		SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight), 1);
+
+	// set idle to current animation
+	m_pCurrentAnim = m_pIdleAnim;
+
+	// create shot sound
+	m_pShot = new CSound("Audio/S_Shot.wav");
 }
 #pragma endregion

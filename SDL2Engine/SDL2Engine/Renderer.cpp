@@ -1,23 +1,27 @@
-#pragma region SDL2 include
+#pragma region sdl include
 #include <SDL.h>
 #pragma endregion
 
 #pragma region project include
 #include "Renderer.h"
-#include "Texture.h"
 #include "Rect.h"
-#include "Config.h"
+#include "Texture.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region constructor
 // constructor
 CRenderer::CRenderer(SDL_Window * _pWindow)
 {
+	// initialize renderer nullptr
+	m_pRenderer = nullptr;
+
 	// create renderer
 	m_pRenderer = SDL_CreateRenderer(
-		_pWindow,												// window reference
-		-1,														// index
-		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC	// flags (F12)
+		_pWindow,						// window reference
+		-1,								// index
+		SDL_RENDERER_ACCELERATED |		// flags
+		SDL_RENDERER_PRESENTVSYNC
 	);
 }
 #pragma endregion
@@ -26,98 +30,74 @@ CRenderer::CRenderer(SDL_Window * _pWindow)
 // destructor
 CRenderer::~CRenderer()
 {
-	SDL_DestroyRenderer(m_pRenderer);
+	// if renderer valid destroy renderer
+	if (m_pRenderer)
+		SDL_DestroyRenderer(m_pRenderer);
 }
 #pragma endregion
 
 #pragma region public function
-// clear current screen
+// clear screen
 void CRenderer::ClearScreen()
 {
 	SDL_RenderClear(m_pRenderer);
 }
 
 // render texture
-void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _pDstRect, SRect* _pSrcRect, float _angle, SVector2 _mirror, bool _inWorld)
+void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _dstRect, SRect* _srcRect, 
+	float _angle, SVector2 _mirror, bool _inWorld)
 {
-	// if texture not valid
+	// if texture not valid return
 	if (!_pTexture)
-	{
 		return;
-	}
 
-	// if textre rendered in world and of out camera range
-	else if (_inWorld && _pDstRect && (
-		(_pDstRect->x < m_camera.X - CConfig::s_ScreenWidth * 0.5f - _pDstRect->w) ||
-		(_pDstRect->x > m_camera.X + CConfig::s_ScreenWidth * 0.5f) ||
-		(_pDstRect->y < m_camera.Y - CConfig::s_ScreenHeight * 0.5f - _pDstRect->h) ||
-		(_pDstRect->y > m_camera.Y + CConfig::s_ScreenHeight * 0.5f)
-		))
-	{
-		return;
-	}
+	// if destination rect has no width or height set to nullptr
+	if (_dstRect && (!_dstRect->w || !_dstRect->h))
+		_dstRect = nullptr;
 
-	// if textre not rendered in world and of out screen return
-	else if (!_inWorld && _pDstRect && (
-		(_pDstRect->x < -_pDstRect->w) || (_pDstRect->x > CConfig::s_ScreenWidth) ||
-		(_pDstRect->y < -_pDstRect->h) || (_pDstRect->y > CConfig::s_ScreenHeight)
-		))
-	{
-		return;
-	}
+	// if source rect has no width or height set to nullptr
+	if (_srcRect && (!_srcRect->w || !_srcRect->h))
+		_srcRect = nullptr;
 
-	// set rotation center point
+	// rotation point
 	SDL_Point rotationPoint;
 
 	// if destination rect valid
-	if (_pDstRect)
+	if (_dstRect)
 	{
-		// set rotation point
-		rotationPoint.x = _pDstRect->w / 2;
-		rotationPoint.y = _pDstRect->h / 2;
+		// set rotation point to center
+		rotationPoint.x = _dstRect->w / 2;
+		rotationPoint.y = _dstRect->h / 2;
 
 		// if object is rendered in world
 		if (_inWorld)
 		{
-			// offset of destination rect depending on camera position
-			_pDstRect->x -= m_camera.X - CConfig::s_ScreenWidth * 0.5f;
-			_pDstRect->y -= m_camera.Y - CConfig::s_ScreenHeight * 0.5f;
+			// add camera offset to destination rect
+			_dstRect->x -= m_camera.X - SCREEN_WIDTH / 2;
+			_dstRect->y -= m_camera.Y - SCREEN_HEIGHT / 2;
 		}
 	}
 
-	// if width or height of destination rect 0 set to nullptr
-	if (_pDstRect && (!_pDstRect->h || !_pDstRect->w))
-		_pDstRect = nullptr;
-	
-	// if width or height of source rect 0 set to nullptr
-	if (_pSrcRect && (!_pSrcRect->h || !_pSrcRect->w))
-		_pSrcRect = nullptr;
-
-	// flip
+	// flip enum default none
 	SDL_RendererFlip flip = SDL_RendererFlip::SDL_FLIP_NONE;
 
-	// if mirror x not 0 and y 0 set flip to horizontal
-	if (_mirror.X && !_mirror.Y)
+	// if mirror x not 0 flip texture horizontal
+	if (_mirror.X != 0 && _mirror.Y == 0)
 		flip = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 
-	// if mirror y not 0 and x 0 set flip to vertical
-	else if (_mirror.Y && !_mirror.X)
+	// if mirror y not 0 flip texture vertical
+	else if (_mirror.X == 0 && _mirror.Y != 0)
 		flip = SDL_RendererFlip::SDL_FLIP_VERTICAL;
 
-	// if mirror x and mirror y not 0 add 180 angle
-	// mirror horizontal and vertical is the same as 180 angle
-	else if (_mirror.X && _mirror.Y)
-		_angle += 180.0f;
-
-	// render texture
+	// render texture with angle
 	SDL_RenderCopyEx(
-		m_pRenderer,				// sdl renderer reference
-		_pTexture->GetSDLTexture(),	// sdl texture reference
-		_pSrcRect,					// source rect of texture
-		_pDstRect,					// destination rect to render to on screen
-		_angle,						// angle of texture
-		&rotationPoint,				// rotation point of angle
-		flip						// mirror
+		m_pRenderer,					// sdl renderer reference
+		_pTexture->GetSDLTexture(),		// sdl texture reference
+		_srcRect,						// source rect
+		_dstRect,						// destination rect
+		_angle,							// angle
+		&rotationPoint,					// position of
+		flip							// flip flags
 	);
 }
 

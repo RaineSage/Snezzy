@@ -21,6 +21,7 @@ public:
 	/// <param name="_pFileName">file name</param>
 	CMusic(const char* _pFileName)
 	{
+		// load music
 		m_pMusic = Mix_LoadMUS(GetAssetPath(_pFileName, 4).c_str());
 	}
 #pragma endregion
@@ -43,7 +44,7 @@ public:
 	/// <returns>volume of music</returns>
 	int GetVolume() 
 	{
-		return m_volume;
+		return m_volume; 
 	}
 
 	/// <summary>
@@ -53,7 +54,7 @@ public:
 	void SetVolume(int _volume)
 	{
 		m_volume = _volume;
-		Mix_VolumeMusic(m_volume);
+		Mix_VolumeMusic(_volume);
 	}
 
 	/// <summary>
@@ -63,15 +64,15 @@ public:
 	void Play(bool _loop)
 	{
 		// int for loop
-		// 1 = 1 loop
+		// 1 = 1 time
 		// -1 = endless
 		int loop = 1;
 
-		// if loop set loop -1
+		// if loop
 		if (_loop)
 			loop = -1;
 
-		// play music by loop
+		// play music
 		Mix_PlayMusic(m_pMusic, loop);
 	}
 
@@ -80,20 +81,8 @@ public:
 	/// </summary>
 	void Stop()
 	{
+		// stop music
 		Mix_HaltMusic();
-	}
-
-	void ChangeMusic(const char* _pFileName)
-	{
-		if (m_pMusic)
-		{
-			Stop();
-			Mix_FreeMusic(m_pMusic);
-			m_pMusic = nullptr;
-		}
-
-		m_pMusic = Mix_LoadMUS(GetAssetPath(_pFileName, 4).c_str());
-		Mix_PlayMusic(m_pMusic, -1);
 	}
 #pragma endregion
 
@@ -109,6 +98,6 @@ private:
 	/// <summary>
 	/// sdl music
 	/// </summary>
-	Mix_Music* m_pMusic;
+	Mix_Music* m_pMusic = nullptr;
 #pragma endregion
 };

@@ -5,6 +5,10 @@
 #include "EEnemyTypes.h"
 #pragma endregion
 
+#pragma region forward declaration
+class CSound;
+#pragma endregion
+
 /// <summary>
 /// move enemy class
 /// </summary>
@@ -39,8 +43,8 @@ public:
 	/// <summary>
 	/// update every frame
 	/// </summary>
-	/// <param name="_deltaTime">time since last frame</param>
-	virtual void Update(float _deltaTime) override;
+	/// <param name="_deltaSeconds">time since last frame</param>
+	virtual void Update(float _deltaSeconds) override;
 
 	/// <summary>
 	/// render every frame
@@ -57,33 +61,40 @@ public:
 
 #pragma region public inline function
 	/// <summary>
-	/// set the type of enemy
+	/// set type of enemy
 	/// </summary>
-	inline void SetType(EEnemyTypes _eType) { m_eType = _eType; }
+	void SetType(EEnemyTypes _eType) { m_eType = _eType; }
 #pragma endregion
 
 private:
+#pragma region private pointer
+	/// <summary>
+	/// shot sound
+	/// </summary>
+	CSound* m_pShot = nullptr;
+#pragma region
+
 #pragma region private variable
 	/// <summary>
-	/// set enemy type (Default = WALKER)
+	/// set enemy type
 	/// </summary>
 	EEnemyTypes m_eType = WALKER;
 #pragma endregion
 
 #pragma region private primitive variable
 	/// <summary>
-	/// time
+	/// time counter
 	/// </summary>
 	float m_time = 0.0f;
 
 	/// <summary>
-	/// intervall of shot time
+	/// interval of jump
 	/// </summary>
-	float m_jumpInter = 1.0f;
+	float m_jumpInter = 2.0f;
 
 	/// <summary>
-	/// intervall of shot time
+	/// interval of shot
 	/// </summary>
-	float m_shotInter = 2.0f;
+	float m_shotInter = 3.0f;
 #pragma endregion
 };

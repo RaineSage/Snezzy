@@ -1,193 +1,158 @@
 #pragma region project include
 #include "ContentManagement.h"
 #include "MoveEntity.h"
-#include "Config.h"
-#include "Engine.h"
-#include "Renderer.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region destructor
 // destructor
 CContentManagement::~CContentManagement()
 {
-	// remove first entity of scene entities until no more left
-	while (m_pSceneEntities.size() > 0)
-		m_pSceneEntities.pop_front();
+	// as long as there is a scene object left remove first object in list
+	while (m_pSceneObjects.size() > 0)
+		m_pSceneObjects.pop_front();
 
-	// remove first entity of persistent entities until no more left
-	while (m_pPersistentEntities.size() > 0)
-		m_pPersistentEntities.pop_front();
+	// as long as there is a persistant object left remove first object in list
+	while (m_pPersistantObjects.size() > 0)
+		m_pPersistantObjects.pop_front();
 
-	// remove first entity of ui entities until no more left
-	while (m_pUIEntities.size() > 0)
-		m_pUIEntities.pop_front();
+	// as long as there is a ui object left remove first object in list
+	while (m_pUIObjects.size() > 0)
+		m_pUIObjects.pop_front();
 }
 #pragma endregion
 
 #pragma region public override function
 // update every frame
-void CContentManagement::Update(float _deltaTime)
+void CContentManagement::Update(float _deltaSeconds)
 {
-	// until no more entities to remove
-	while (m_pRemoveEntities.size() > 0)
+	// remove objects in remove list
+	while (m_pRemoveObjects.size() > 0)
 	{
-		// get first entity reference
-		CEntity* pEntity = m_pRemoveEntities.front();
+		// object to remove
+		CEntity* pObject = m_pRemoveObjects.front();
 
-		// remove reference of lists
-		m_pSceneEntities.remove(pEntity);
-		m_pPersistentEntities.remove(pEntity);
-		m_pUIEntities.remove(pEntity);
-		m_pColEntities.remove(pEntity);
+		// remove object from scene list
+		m_pSceneObjects.remove(pObject);
 
-		if (dynamic_cast<CMoveEntity*>(pEntity))
+		// remove object from persistant list
+		m_pPersistantObjects.remove(pObject);
+
+		// remove object from ui list
+		m_pUIObjects.remove(pObject);
+
+		// if object to remove is move object
+		if (dynamic_cast<CMoveEntity*>(pObject))
 		{
-			m_pMoveEntities.remove((CMoveEntity*)pEntity);
+			// remove object from move object list
+			m_pMoveObjects.remove((CMoveEntity*)pObject);
 
-			m_colCheckTime = CConfig::s_ColTimer / m_pMoveEntities.size();
+			// set collision timer
+			m_collisionTime = COLLISION_CHECK_TIME / m_pMoveObjects.size();
 		}
 
-		// remove and delete first entity to remove
-		m_pRemoveEntities.remove(pEntity);
-		delete pEntity;
+		// delete object
+		m_pRemoveObjects.pop_front();
 	}
 
-	// update every scene entity
-	for (CEntity* _pEntity : m_pSceneEntities)
-		_pEntity->Update(_deltaTime);
+	// update each scene object
+	for (CEntity* pObj : m_pSceneObjects)
+		pObj->Update(_deltaSeconds);
 
-	// update every ui entity
-	for (CEntity* _pEntity : m_pUIEntities)
-		_pEntity->Update(_deltaTime);
+	// update each persistant object
+	for (CEntity* pObj : m_pPersistantObjects)
+		pObj->Update(_deltaSeconds);
 
-	// update every persistent entity
-	for (CEntity* _pEntity : m_pPersistentEntities)
-		_pEntity->Update(_deltaTime);
+	// update each ui object
+	for (CEntity* pObj : m_pUIObjects)
+		pObj->Update(_deltaSeconds);
 
-	m_colTimer -= _deltaTime;
+	// decrease collision check time
+	m_currentColTime -= _deltaSeconds;
 
-	if (m_colTimer > 0 || !m_pMoveEntities.size())
+	// if collision check time over 0 return
+	if (m_currentColTime > 0 || m_pMoveObjects.size() == 0)
 		return;
 
-	CMoveEntity* pMoveEntity = m_pMoveEntities.front();
-	m_pMoveEntities.front()->SetCollisionList();
-	m_pMoveEntities.remove(pMoveEntity);
-	m_pMoveEntities.push_back(pMoveEntity);
+	// check collision of first move object in list
+	m_pMoveObjects.front()->SetCollisionList();
 
-	m_colTimer = CConfig::s_ColTimer;
+	// set first element to last
+	CMoveEntity* pMoveObj = m_pMoveObjects.front();
+	m_pMoveObjects.remove(pMoveObj);
+	m_pMoveObjects.push_back(pMoveObj);
 
-	int i = 0;
-	
-	while (i < m_pMoveEntities.size())
-	{
-		i++;
-
-		CMoveEntity* pMoveEntity = m_pMoveEntities.front();
-
-		if (pMoveEntity->GetPosition().X > RENDERER->GetCamera().X - CConfig::s_ScreenWidth * 0.6f
-			&& pMoveEntity->GetPosition().X < RENDERER->GetCamera().X + CConfig::s_ScreenWidth * 0.6f
-			&& pMoveEntity->GetPosition().Y > RENDERER->GetCamera().Y - CConfig::s_ScreenHeight * 0.6f
-			&& pMoveEntity->GetPosition().Y < RENDERER->GetCamera().Y + CConfig::s_ScreenHeight * 0.6f)
-		{
-			m_pMoveEntities.front()->SetCollisionList();
-		}
-
-		m_pMoveEntities.remove(pMoveEntity);
-		m_pMoveEntities.push_back(pMoveEntity);
-
-		m_colTimer = m_colCheckTime;
-	}
-	
+	// reset collision timer
+	m_currentColTime = m_collisionTime;
 }
 
 // render every frame
 void CContentManagement::Render()
 {
-	// order is important for layering
+	// order of rendering is important
+	// first list first rendered
 
-	// render every scene entity
-	for (CEntity* _pEntity : m_pSceneEntities)
-		_pEntity->Render();
+	// render each scene object
+	for (CEntity* pObj : m_pSceneObjects)
+		pObj->Render();
 
-	// render every persistent entity
-	for (CEntity* _pEntity : m_pPersistentEntities)
-		_pEntity->Render();
+	// render each persistant object
+	for (CEntity* pObj : m_pPersistantObjects)
+		pObj->Render();
 
-	// render every ui entity
-	for (CEntity* _pEntity : m_pUIEntities)
-		_pEntity->Render();
+	// render each ui object
+	for (CEntity* pObj : m_pUIObjects)
+		pObj->Render();
 }
 #pragma endregion
 
-void CContentManagement::SetupCollision(int _width)
+#pragma region public function
+/// <summary>
+/// remove object from game
+/// </summary>
+/// <param name="_pObject">object</param>
+void CContentManagement::RemoveObject(CEntity* _pObject)
 {
-	for (int i = 0; i < _width; i += 5)
-	{
-		m_colRowColumn.push_back(list<CEntity*>());
-	}
-
-	for (int i = 0; i < _width; i++)
-	{
-		for (CEntity* pEntity : m_pSceneEntities)
-		{
-			if (pEntity->GetPosition().X >= i * CConfig::s_BlockWidth && pEntity->GetPosition().X < (i + 1) * CConfig::s_BlockWidth)
-			{
-				list<list<CEntity*>>::iterator it = m_colRowColumn.begin();
-
-				// Advance the iterator by 2 positions,
-				advance(it, i / 5);
-				it->push_back(pEntity);
-
-			}
-		}
-	}
-
-	for (CEntity* pEntity : m_pSceneEntities)
-	{
-		if (dynamic_cast<CTexturedEntity*>(pEntity))
-		{
-			if (((CTexturedEntity*)pEntity)->GetColType() != ECollisionType::NONE)
-				m_pColEntities.push_back(pEntity);
-		}
-	}
+	// add object to remove list
+	m_pRemoveObjects.push_back(_pObject);
 }
 
-void CContentManagement::Clear()
+/// <summary>
+/// sort list by layer
+/// </summary>
+/// <param name="_pList">list</param>
+void CContentManagement::SortList(list<CEntity*> &_pList)
 {
-	for (CEntity* pEntity : m_pSceneEntities)
-		m_pRemoveEntities.push_back(pEntity);
 
-	for (CEntity* pEntity : m_pPersistentEntities)
-		m_pRemoveEntities.push_back(pEntity);
-
-	for (CEntity* pEntity : m_pUIEntities)
-		m_pRemoveEntities.push_back(pEntity);
 }
-
-list<CEntity*> CContentManagement::GetCollisionRowColumn(SVector2 _pos)
-{
-	for (list<CEntity*> pList : m_colRowColumn)
-	{
-		if (_pos.X > pList.front()->GetPosition().X && _pos.X < pList.back()->GetPosition().X + CConfig::s_BlockWidth)
-		{
-			return pList;
-		}
-	}
-
-	return list<CEntity*>();
-}
+#pragma endregion
 
 #pragma region private function
-// add entity to list
-void CContentManagement::AddEntity(CEntity * _pEntity, list<CEntity*>& _pList)
+// add object to list
+void CContentManagement::AddObject(CEntity* _pObject, list<CEntity*> &_pList)
 {
-	_pList.push_back(_pEntity);
+	// add object to list
+	_pList.push_back(_pObject);
 
-	if (dynamic_cast<CMoveEntity*>(_pEntity))
+	// if object is a move object
+	if (dynamic_cast<CMoveEntity*>(_pObject))
 	{
-		m_pMoveEntities.push_back((CMoveEntity*)_pEntity);
+		// add to move object list
+		m_pMoveObjects.push_front((CMoveEntity*)_pObject);
 
-		m_colCheckTime = CConfig::s_ColTimer / m_pMoveEntities.size();
+		// set collision time
+		m_collisionTime = COLLISION_CHECK_TIME / m_pMoveObjects.size();
 	}
+
+	// sort list
+	SortList(_pList);
+}
+
+// clean all objects in list
+void CContentManagement::CleanObjects(list<CEntity*>& _list)
+{
+	// add each object in list to objects to remove
+	for (CEntity* pObj : _list)
+		m_pRemoveObjects.push_front(pObj);
 }
 #pragma endregion

@@ -72,7 +72,7 @@ public:
 	/// get color of text
 	/// </summary>
 	/// <returns>color of text</returns>
-	inline SColor GetColor() { m_color; }
+	inline SColor GetColor() { return m_color; }
 
 	/// <summary>
 	/// set color of text
@@ -106,7 +106,7 @@ protected:
 	/// <summary>
 	/// text value
 	/// </summary>
-	const char* m_pText;
+	const char* m_pText = nullptr;
 #pragma endregion
 
 #pragma region protected variable

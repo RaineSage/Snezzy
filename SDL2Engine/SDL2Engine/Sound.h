@@ -1,6 +1,6 @@
 #pragma once
 
-#pragma region system include
+#pragma region sdl include
 #include <SDL_mixer.h>
 #pragma endregion
 
@@ -21,6 +21,7 @@ public:
 	/// <param name="_pFileName">file name</param>
 	CSound(const char* _pFileName)
 	{
+		// load sound
 		m_pSound = Mix_LoadWAV(GetAssetPath(_pFileName, 4).c_str());
 	}
 #pragma endregion
@@ -31,6 +32,7 @@ public:
 	/// </summary>
 	~CSound()
 	{
+		// free sound
 		Mix_FreeChunk(m_pSound);
 	}
 #pragma endregion
@@ -52,7 +54,7 @@ public:
 	void SetVolume(int _volume)
 	{
 		m_volume = _volume;
-		Mix_VolumeChunk(m_pSound, m_volume);
+		Mix_VolumeChunk(m_pSound, _volume);
 	}
 
 	/// <summary>
@@ -60,6 +62,7 @@ public:
 	/// </summary>
 	void Play()
 	{
+		// play sound
 		Mix_PlayChannel(-1, m_pSound, 0);
 	}
 
@@ -68,7 +71,8 @@ public:
 	/// </summary>
 	void Stop()
 	{
-		Mix_HaltChannel(-1);
+		// stop music
+		Mix_HaltMusic();
 	}
 #pragma endregion
 
@@ -84,6 +88,6 @@ private:
 	/// <summary>
 	/// sdl sound
 	/// </summary>
-	Mix_Chunk* m_pSound;
+	Mix_Chunk* m_pSound = nullptr;
 #pragma endregion
 };

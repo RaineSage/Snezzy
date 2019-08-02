@@ -1,10 +1,12 @@
 #pragma once
 
 #pragma region project include
-#include "Scene.h" 
+#include "Scene.h"  
 #pragma endregion
 
+#pragma region forward decleration
 class CText;
+#pragma endregion
 
 /// <summary>
 /// menu game scene
@@ -28,9 +30,9 @@ public:
 
 #pragma region public function
 	/// <summary>
-	/// initialize scene
+	/// load scene
 	/// </summary>
-	virtual void Init() override;
+	virtual void Load() override;
 
 	/// <summary>
 	/// clean scene
@@ -49,8 +51,11 @@ public:
 	virtual void Render() override;
 #pragma endregion
 
-	CText* m_pStartButton = nullptr;
-	CText* m_pQuitButton = nullptr;
-
-
+private:
+#pragma region private pointer
+	/// <summary>
+	/// start text
+	/// </summary>
+	CText* m_pStart = nullptr;
+#pragma endregion
 };

@@ -1,12 +1,16 @@
 #pragma once
 
-#include <string>
+#pragma region system include
+#include <string>  
+#pragma endregion
 
 #pragma region project include
 #include "TexturedEntity.h" 
 #pragma endregion
 
+#pragma region using
 using namespace std;
+#pragma endregion
 
 /// <summary>
 /// world class
@@ -18,8 +22,9 @@ public:
 	/// <summary>
 	/// constructor
 	/// </summary>
-	/// <param name="_pFileName">relative file path name</param>
-	GWorld(const char* _pFileName = nullptr)
+	/// <param name="_pRenderer">renderer</param>
+	/// <param name="_pFileName">absolute file path name</param>
+	GWorld(const char* _pFileName)
 		: CTexturedEntity(SVector2(), SVector2(), _pFileName) {}
 
 	/// <summary>
@@ -35,9 +40,12 @@ public:
 	void Init();
 #pragma endregion
 
-private:
 #pragma region private function
-	string LoadWorldFromImage(const char* _pFileName);
+	/// <summary>
+	/// load world as string from bmp file
+	/// </summary>
+	/// <param name="_pFile">file to load from</param>
+	/// <returns>world as string</returns>
+	string LoadWorldFromBmp(const char* _pFile);
 #pragma endregion
-
 };
