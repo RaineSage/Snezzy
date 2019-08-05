@@ -21,7 +21,7 @@ void GMoveEnemy::Update(float _deltaSeconds)
 
 		if (m_time >= m_jumpInter)
 		{
-			m_fallTime = -0.5f;
+			SetFallTime(-GConfig::s_PlayerJump*0.5f);
 			m_time = 0.0f;
 		}
 	}
@@ -54,6 +54,11 @@ void GMoveEnemy::Update(float _deltaSeconds)
 
 			m_time = 0.0f;
 		}
+	}
+
+	if (m_pColTarget && CMoveEntity::m_Attack && m_pColTarget->GetTag() == "Player")
+	{
+		CTM->RemoveObject(this);
 	}
 }
 

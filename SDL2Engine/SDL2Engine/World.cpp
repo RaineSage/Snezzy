@@ -113,6 +113,7 @@ void GWorld::Init()
 			// initialize enemy and add to persistant
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
@@ -128,6 +129,7 @@ void GWorld::Init()
 			pEnemy->SetType(JUMPER);
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
@@ -143,6 +145,7 @@ void GWorld::Init()
 			pEnemy->SetType(SHOOTER);
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
 			break;
 		}

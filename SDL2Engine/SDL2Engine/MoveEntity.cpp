@@ -8,6 +8,9 @@
 #pragma endregion
 
 #pragma region public override function
+
+bool CMoveEntity::m_Attack = false;
+
 // update every frame
 void CMoveEntity::Update(float _deltaSeconds)
 {
@@ -154,10 +157,10 @@ void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float 
 			// set moveable by checking collision
 			moveable = !CPhysic::RectRectCollision(rect, objRect);
 
-			// change walk direction by collision (only enemys)
-			if (m_pTag == "Enemy" && !_useGravity && !moveable)
+			// mario jump on enemies
+			if (m_pTag == "Player" && _useGravity && !moveable && pObj->GetTag() == "Enemy")
 			{
-				m_movement.X = -(m_movement.X);
+				CTM->RemoveObject(pObj);
 			}
 
 			// if not moveable cancel collision check
@@ -168,6 +171,12 @@ void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float 
 				break;
 			}
 		}
+	}
+
+	// change walk direction by collision (only enemys)
+	if (m_pTag == "Enemy" && !_useGravity && !moveable)
+	{
+		m_movement.X = -(m_movement.X);
 	}
 
 	// if gravity used and moveable set grounded false

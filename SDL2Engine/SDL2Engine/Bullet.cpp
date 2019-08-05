@@ -14,10 +14,17 @@ void GBullet::Update(float _deltaSeconds)
 		// remove bullet
 		CTM->RemoveObject(this);
 
-		// if collision target is player delete
-		if (m_pColTarget->GetTag() == "Player")
-			CTM->RemoveObject(m_pColTarget);
+		// if player defenseless
+		if (!CMoveEntity::m_Attack)
+		{
+			// if collision target is player delete
+			if (m_pColTarget->GetTag() == "Player")
+				CTM->RemoveObject(m_pColTarget);
+		}
+
 	}
+
+
 
 	// update parent
 	CMoveEntity::Update(_deltaSeconds);

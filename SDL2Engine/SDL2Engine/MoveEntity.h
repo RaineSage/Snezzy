@@ -14,6 +14,13 @@
 class CMoveEntity : public CTexturedEntity
 {
 public:
+#pragma region public static primitive variable
+	/// <summary>
+	/// Check if Player is attacking
+	/// </summary>
+	static bool m_Attack;
+#pragma endregion
+
 #pragma region constructor
 	/// <summary>
 	/// constructor
@@ -153,7 +160,6 @@ protected:
 #pragma endregion
 
 private:
-
 #pragma region private function
 	/// <summary>
 	/// check collision with collidable objects list

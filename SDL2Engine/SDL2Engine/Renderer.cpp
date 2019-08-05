@@ -47,34 +47,42 @@ void CRenderer::ClearScreen()
 void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _dstRect, SRect* _srcRect, 
 	float _angle, SVector2 _mirror, bool _inWorld)
 {
+	// get rect
+	SRect* pDstRect = new SRect();
+
+	// if given dst rect valid set values of temp dest rect
+	if(_dstRect)
+		*pDstRect = SRect(SVector2(_dstRect->w, _dstRect->h),
+		SVector2(_dstRect->x, _dstRect->y));
+
 	// if texture not valid return
 	if (!_pTexture)
 		return;
 
 	// if destination rect has no width or height set to nullptr
-	if (_dstRect && (!_dstRect->w || !_dstRect->h))
-		_dstRect = nullptr;
+	if (pDstRect && (pDstRect->w == 0.0f || pDstRect->h == 0.0f))
+		pDstRect = nullptr;
 
 	// if source rect has no width or height set to nullptr
-	if (_srcRect && (!_srcRect->w || !_srcRect->h))
+	if (_srcRect && (_srcRect->w == 0.0f || _srcRect->h == 0.0f))
 		_srcRect = nullptr;
 
 	// rotation point
 	SDL_Point rotationPoint;
 
 	// if destination rect valid
-	if (_dstRect)
+	if (pDstRect)
 	{
 		// set rotation point to center
-		rotationPoint.x = _dstRect->w / 2;
-		rotationPoint.y = _dstRect->h / 2;
+		rotationPoint.x = pDstRect->w / 2;
+		rotationPoint.y = pDstRect->h / 2;
 
 		// if object is rendered in world
 		if (_inWorld)
 		{
 			// add camera offset to destination rect
-			_dstRect->x -= m_camera.X - SCREEN_WIDTH / 2;
-			_dstRect->y -= m_camera.Y - SCREEN_HEIGHT / 2;
+			pDstRect->x -= m_camera.X - SCREEN_WIDTH / 2;
+			pDstRect->y -= m_camera.Y - SCREEN_HEIGHT / 2;
 		}
 	}
 
@@ -94,11 +102,14 @@ void CRenderer::RenderTexture(CTexture* _pTexture, SRect* _dstRect, SRect* _srcR
 		m_pRenderer,					// sdl renderer reference
 		_pTexture->GetSDLTexture(),		// sdl texture reference
 		_srcRect,						// source rect
-		_dstRect,						// destination rect
+		pDstRect,						// destination rect
 		_angle,							// angle
 		&rotationPoint,					// position of
 		flip							// flip flags
 	);
+
+	// delete temp destination rect
+	delete pDstRect;
 }
 
 // present rendered screen
