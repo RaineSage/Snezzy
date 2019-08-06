@@ -68,6 +68,9 @@
     <ClCompile Include="TexturedEntity.cpp">
       <Filter>Engine\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Game\Object\Time/Health</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -144,6 +147,9 @@
     </Filter>
     <Filter Include="Engine\Entity">
       <UniqueIdentifier>{e4a6c05d-555f-4a99-8830-7e8da20ed4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Time/Health">
+      <UniqueIdentifier>{4e9622d2-e96c-4873-9279-7a5977bd84ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="EEnemyTypes.h">
       <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Game\Object\Time/Health</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

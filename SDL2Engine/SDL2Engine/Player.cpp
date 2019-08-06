@@ -9,6 +9,7 @@
 #include "MainScene.h"
 #include "Animation.h"
 #include "Sound.h"
+#include "Timer.h"
 #pragma endregion
 
 #pragma region public override function
@@ -84,16 +85,33 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pCurrentAnim->GetCurrentTexturePosition().Y
 	);
 
-	// destroy enemy when attack
+	// destroy enemy when attack else get damage
 	if (m_pColTarget && attack && ((m_pColTarget->GetTag() == "Enemy") || (m_pColTarget->GetTag() == "Bullet")))
+	{
 		CTM->RemoveObject(m_pColTarget);
+	}
+	else if (m_pColTarget && !attack && !m_gotDamage && ((m_pColTarget->GetTag() == "Enemy") || (m_pColTarget->GetTag() == "Bullet")))
+	{
+		m_gotDamage = true;
+		GTimer::RemoveTime(10);
+	}
 
-	if(m_pColTarget && m_pColTarget->GetTag() == "Enemy" && m_fallTime > 0.0f)
-		CTM->RemoveObject(m_pColTarget); 
+	if (GTimer::GetTime() <= 0.0f)
+	{
+		ENGINE->ChangeScene(new GMenuScene());
+	}
 
-	// if collision target valid and is enemy destroy all and back to menu
-	// else if (m_pColTarget && (m_pColTarget->GetTag() == "Enemy" || m_pColTarget->GetTag() == "Bullet"))
-	//  	ENGINE->ChangeScene(new GMenuScene());	
+	// how long player can't take damage
+	if (m_gotDamage)
+	{
+		m_time += _deltaSeconds;
+	
+		if (m_time >= m_dammageTime)
+		{
+			m_time = 0.0f;
+			m_gotDamage = false;
+		}
+	}
 
 	// update parent
 	CMoveEntity::Update(_deltaSeconds);

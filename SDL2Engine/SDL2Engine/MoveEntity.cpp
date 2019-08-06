@@ -7,10 +7,11 @@
 #include "Macro.h"
 #pragma endregion
 
-#pragma region public override function
-
+#pragma region public declare static primitive variable
 bool CMoveEntity::m_Attack = false;
+#pragma endregion
 
+#pragma region public override function
 // update every frame
 void CMoveEntity::Update(float _deltaSeconds)
 {
@@ -158,7 +159,7 @@ void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float 
 			moveable = !CPhysic::RectRectCollision(rect, objRect);
 
 			// mario jump on enemies
-			if (m_pTag == "Player" && _useGravity && !moveable && pObj->GetTag() == "Enemy")
+			if (!moveable && m_pTag == "Player" && _useGravity && pObj->GetTag() == "Enemy")
 			{
 				CTM->RemoveObject(pObj);
 			}

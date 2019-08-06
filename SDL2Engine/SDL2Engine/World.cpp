@@ -12,6 +12,8 @@
 #include "Player.h"
 #include "MoveEnemy.h"
 #include "Helper.h"
+#include "Timer.h"
+#include "Game.h"
 #pragma endregion
 
 #pragma region using
@@ -170,6 +172,10 @@ void GWorld::Init()
 			width = 0;
 		}
 	}
+
+	// Add Timer to HUD
+	GTimer* pTimer = new GTimer(100, GAME->m_PArial, SRect(100, 50, 0, 0), SColor(255, 255, 255, 255));
+	CTM->AddSceneObject(pTimer);
 }
 #pragma endregion
 

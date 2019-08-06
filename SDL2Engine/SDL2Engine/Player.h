@@ -103,5 +103,15 @@ private:
 	/// attack time
 	/// </summary>
 	float m_attackTime = 1.0f;
+
+	/// <summary>
+	/// damage time
+	/// </summary>
+	float m_dammageTime = 2.0f;
+
+	/// <summary>
+	/// got damage
+	/// </summary>
+	bool m_gotDamage = false;
 #pragma endregion
 };

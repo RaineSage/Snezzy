@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Engine.h"
 #include "ContentManagement.h"
+#include "Timer.h"
 #pragma endregion
 
 #pragma region public override function
@@ -19,12 +20,9 @@ void GBullet::Update(float _deltaSeconds)
 		{
 			// if collision target is player delete
 			if (m_pColTarget->GetTag() == "Player")
-				CTM->RemoveObject(m_pColTarget);
+				GTimer::RemoveTime(10);
 		}
-
 	}
-
-
 
 	// update parent
 	CMoveEntity::Update(_deltaSeconds);

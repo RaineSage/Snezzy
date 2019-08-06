@@ -5,6 +5,7 @@
 #include "ContentManagement.h"
 #include "Engine.h"
 #include "Sound.h"
+#include "Timer.h"
 #pragma endregion
 
 #pragma region public override function
@@ -59,6 +60,10 @@ void GMoveEnemy::Update(float _deltaSeconds)
 	if (m_pColTarget && CMoveEntity::m_Attack && m_pColTarget->GetTag() == "Player")
 	{
 		CTM->RemoveObject(this);
+	}
+	else if (m_pColTarget && !CMoveEntity::m_Attack && m_pColTarget->GetTag() == "Player")
+	{
+		GTimer::RemoveTime(10);
 	}
 }
 
