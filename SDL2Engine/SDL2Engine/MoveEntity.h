@@ -14,6 +14,18 @@
 class CMoveEntity : public CTexturedEntity
 {
 public:
+#pragma region public static primitive variable
+	/// <summary>
+	/// check if player is attacking
+	/// </summary>
+	static bool m_Attack;
+
+	/// <summary>
+	/// health of the present Boss
+	/// </summary>
+	static int m_BossHealth;
+#pragma endregion
+
 #pragma region constructor
 	/// <summary>
 	/// constructor
@@ -118,6 +130,11 @@ protected:
 	bool m_grounded = false;
 
 	/// <summary>
+	/// stop attack
+	/// </summary>
+	bool m_stopAtck = false;
+
+	/// <summary>
 	/// movement speed
 	/// </summary>
 	float m_speed = 0.0f;
@@ -153,7 +170,6 @@ protected:
 #pragma endregion
 
 private:
-
 #pragma region private function
 	/// <summary>
 	/// check collision with collidable objects list

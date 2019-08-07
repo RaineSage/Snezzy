@@ -9,40 +9,26 @@
 #include "MainScene.h"
 #include "Animation.h"
 #include "Sound.h"
+#include "Timer.h"
 #pragma endregion
 
 #pragma region public override function
 // update every frame
 void GPlayer::Update(float _deltaSeconds)
 {
+	bool attack = CMoveEntity::m_Attack;
+
 	// if key w is pressed down jump
 	if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) && m_grounded)
 		SetFallTime(-GConfig::s_PlayerJump);
 
 	// if key lshift is pressed
-	if (!m_attack && CInput::GetKeyDown(SDL_SCANCODE_LSHIFT))
-	{
-		m_attack = true;
-	}
+	if (!attack && CInput::GetKeyDown(SDL_SCANCODE_LSHIFT))
+		attack = true;
 
-	// if m_attack true
-	if (m_attack)
-	{
-		m_movement.X = 0.0f;
-
-		// set current animation to attack
-		m_pCurrentAnim = m_pAttackAnim;
-		m_time += _deltaSeconds;
-
-		if (m_time >= 1.0f)
-		{
-			m_attack = false;
-			m_time = 0.0f;
-		}		
-	}
 
 	// if key a is pressed
-	else if (CInput::GetKey(SDL_SCANCODE_A))
+	if (CInput::GetKey(SDL_SCANCODE_A))
 	{
 		// set negative x movement and mirror horizontal
 		m_movement.X = -10.0f;
@@ -62,15 +48,31 @@ void GPlayer::Update(float _deltaSeconds)
 		// set current animation to run 
 		m_pCurrentAnim = m_pRunAnim;
 	}
-
 	// else no x movement
-	else if (!m_attack)
+	else if (!attack)
 	{
 		m_movement.X = 0.0f;
 
 		// set current animation to idle
 		m_pCurrentAnim = m_pIdleAnim;
 	}
+
+	// if m_attack true
+	if (attack)
+	{
+		// set current animation to attack
+		m_pCurrentAnim = m_pAttackAnim;
+
+		m_time += _deltaSeconds;
+
+		if (m_time >= m_attackTime)
+		{
+			m_time = 0.0f;
+			attack = false;
+		}
+	}
+
+	CMoveEntity::m_Attack = attack;
 
 	// update animation
 	m_pCurrentAnim->Update(_deltaSeconds);
@@ -83,13 +85,50 @@ void GPlayer::Update(float _deltaSeconds)
 		m_pCurrentAnim->GetCurrentTexturePosition().Y
 	);
 
-	// destroy enemy when attack
-	if (m_pColTarget && (((m_attack || m_fallTime > 0) && m_pColTarget->GetTag() == "Enemy") || (m_attack &&  m_pColTarget->GetTag() == "Bullet")))
-		CTM->RemoveObject(m_pColTarget);	
+	// destroy enemy when attack else get damage
+	if (m_pColTarget && attack && ((m_pColTarget->GetTag() == "Enemy") || (m_pColTarget->GetTag() == "Bullet")))
+	{
+		CTM->RemoveObject(m_pColTarget);
+	}
+	else if (m_pColTarget && attack && m_pColTarget->GetTag() == "Boss")
+	{
+		CMoveEntity::m_BossHealth--;
 
-	// if collision target valid and is enemy destroy all and back to menu
-	else if (m_pColTarget && (m_pColTarget->GetTag() == "Enemy" || m_pColTarget->GetTag() == "Bullet"))
-		ENGINE->ChangeScene(new GMenuScene());	
+		if (m_position.X >= m_pColTarget->GetPosition().X)
+		{
+			m_pColTarget->AddPosition(SVector2(-50.0f, 0.0f));
+		}
+		else
+		{
+			m_pColTarget->AddPosition(SVector2(50.0f, 0.0f));
+		}
+	}
+	else if (m_pColTarget && !attack && ((m_pColTarget->GetTag() == "Enemy") || (m_pColTarget->GetTag() == "Bullet") || (m_pColTarget->GetTag() == "Boss")))
+	{
+		GTimer::RemoveTime(10);
+
+		if (m_pColTarget->GetPosition().X >= m_position.X)
+		{
+			AddPosition(SVector2(-50.0f, 0.0f));
+		}
+		else
+		{
+			AddPosition(SVector2(50.0f, 0.0f));
+		}
+	}
+
+	// if collision target is item, delete item
+	if (m_pColTarget && (m_pColTarget->GetTag() == "SpeedBonbon"))
+	{
+		m_speed += 1.0f;
+
+		CTM->RemoveObject(m_pColTarget);
+	}
+
+	if (GTimer::GetTime() <= 0.0f)
+	{
+		ENGINE->ChangeScene(new GMenuScene());
+	}
 
 	// update parent
 	CMoveEntity::Update(_deltaSeconds);
@@ -109,6 +148,9 @@ void GPlayer::Render()
 // initialize player
 void GPlayer::Init()
 {
+	// set col type
+	m_colType = ECollisionType::MOVE;
+
 	// create idle animation
 	m_pIdleAnim = new CAnimation(SVector2(0.0f, GConfig::s_PlayerSrcRectHeight),
 		SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight), 1);
@@ -118,7 +160,7 @@ void GPlayer::Init()
 	m_pRunAnim->SetAnimationTime(0.5f);
 
 	// create attack animation
-	m_pAttackAnim = new CAnimation(SVector2(0.0f, GConfig::s_PlayerSrcRectHeight),
+	m_pAttackAnim = new CAnimation(SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight),
 		SVector2(GConfig::s_PlayerSrcRectWidth, GConfig::s_PlayerSrcRectHeight), 1);
 
 	// set idle to current animation

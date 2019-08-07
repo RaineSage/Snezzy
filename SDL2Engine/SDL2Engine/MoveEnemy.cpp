@@ -5,6 +5,7 @@
 #include "ContentManagement.h"
 #include "Engine.h"
 #include "Sound.h"
+#include "Timer.h"
 #pragma endregion
 
 #pragma region public override function
@@ -21,7 +22,7 @@ void GMoveEnemy::Update(float _deltaSeconds)
 
 		if (m_time >= m_jumpInter)
 		{
-			m_fallTime = -0.5f;
+			SetFallTime(-GConfig::s_PlayerJump*0.5f);
 			m_time = 0.0f;
 		}
 	}
@@ -50,9 +51,27 @@ void GMoveEnemy::Update(float _deltaSeconds)
 			CTM->AddPersistantObject(pBullet);
 
 			// play shot sound
-			m_pShot->Play();
+			// m_pShot->Play();
 
 			m_time = 0.0f;
+		}
+	}
+
+	if (m_pColTarget && CMoveEntity::m_Attack && m_pColTarget->GetTag() == "Player")
+	{
+		CTM->RemoveObject(this);
+	}
+	else if (m_pColTarget && !CMoveEntity::m_Attack && m_pColTarget->GetTag() == "Player")
+	{
+		GTimer::RemoveTime(10);
+
+		if (m_position.X >= m_pColTarget->GetPosition().X)
+		{
+			m_pColTarget->AddPosition(SVector2(-50.0f, 0.0f));
+		}
+		else
+		{
+			m_pColTarget->AddPosition(SVector2(50.0f, 0.0f));
 		}
 	}
 }

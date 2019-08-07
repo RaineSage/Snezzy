@@ -1,0 +1,10 @@
+#pragma once
+
+enum ItemTypes
+{
+	SPEEDBONBON,
+	TIMEFREEZER,
+	BUTTON,
+	DUSTRABBIT,
+	SLEEPSAND
+};

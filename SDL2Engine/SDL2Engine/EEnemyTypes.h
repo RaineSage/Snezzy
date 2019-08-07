@@ -4,5 +4,6 @@ enum EEnemyTypes
 {
 	WALKER,
 	JUMPER,
-	SHOOTER
+	SHOOTER,
+	CUTEULHU
 };

@@ -95,13 +95,13 @@ private:
 
 #pragma region private primitive variable
 	/// <summary>
-	/// if player attack
-	/// </summary>
-	bool m_attack = false;
-
-	/// <summary>
 	/// time counter
 	/// </summary>
 	float m_time = 0.0f;
+
+	/// <summary>
+	/// attack time
+	/// </summary>
+	float m_attackTime = 1.0f;
 #pragma endregion
 };

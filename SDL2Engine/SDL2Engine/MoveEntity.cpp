@@ -7,6 +7,11 @@
 #include "Macro.h"
 #pragma endregion
 
+#pragma region public declare static primitive variable
+bool CMoveEntity::m_Attack = false;
+int CMoveEntity::m_BossHealth = 0;
+#pragma endregion
+
 #pragma region public override function
 // update every frame
 void CMoveEntity::Update(float _deltaSeconds)
@@ -154,10 +159,15 @@ void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float 
 			// set moveable by checking collision
 			moveable = !CPhysic::RectRectCollision(rect, objRect);
 
-			// change walk direction by collision (only enemys)
-			if (m_pTag == "Enemy" && !_useGravity && !moveable)
+			// mario jump on enemies
+			if (!moveable && m_pTag == "Player" && _useGravity && pObj->GetTag() == "Enemy")
 			{
-				m_movement.X = -(m_movement.X);
+				CTM->RemoveObject(pObj);
+			}
+			else if (!moveable && !m_stopAtck && m_pTag == "Player" && _useGravity && pObj->GetTag() == "Boss")
+			{
+				m_BossHealth--;
+				m_stopAtck = true;
 			}
 
 			// if not moveable cancel collision check
@@ -168,6 +178,19 @@ void CMoveEntity::CheckCollision(float _deltaSeconds, SVector2 _movement, float 
 				break;
 			}
 		}
+	}
+
+	// allow to attack-jump on boss again
+	if (m_pTag == "Player" && m_pColTarget && m_pColTarget->GetColType() != MOVE)
+	{
+		m_stopAtck = false;
+	}
+
+	// change walk direction by collision (only enemys)
+	if ((m_pTag == "Enemy" || m_pTag == "Boss") && !_useGravity && !moveable)
+	{
+		m_movement.X = -(m_movement.X);
+		m_mirror.X = !m_mirror.X;
 	}
 
 	// if gravity used and moveable set grounded false

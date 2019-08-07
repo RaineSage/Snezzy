@@ -2,6 +2,7 @@
 
 #pragma region project include
 #include "Scene.h"  
+#include "TexturedEntity.h"
 #pragma endregion
 
 #pragma region forward decleration
@@ -54,8 +55,18 @@ public:
 private:
 #pragma region private pointer
 	/// <summary>
-	/// start text
+	/// start game
 	/// </summary>
-	CText* m_pStart = nullptr;
+	CTexturedEntity* m_pStartButton = nullptr;
+
+	/// <summary>
+	/// start new game
+	/// </summary>
+	CTexturedEntity* m_pNGButton = nullptr;
+
+	/// <summary>
+	/// exit game
+	/// </summary>
+	CTexturedEntity* m_pExitButton = nullptr;
 #pragma endregion
 };

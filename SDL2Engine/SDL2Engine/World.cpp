@@ -11,7 +11,11 @@
 #include "Texture.h"
 #include "Player.h"
 #include "MoveEnemy.h"
+#include "Items.h"
+#include "Bosses.h"
 #include "Helper.h"
+#include "Timer.h"
+#include "Game.h"
 #pragma endregion
 
 #pragma region using
@@ -39,6 +43,10 @@ void GWorld::Init()
 	// E / blue = enemy WALKER
 	// J / enemy JUMPER
 	// F / enemy SHOOTER
+	// B / Item SpeedBonbon
+	// N / Item TimeFreezer
+	// K / Item Button
+	// Z / Item SleepSand
 	// S / green = start
 	
 	// load world from txt file
@@ -113,6 +121,7 @@ void GWorld::Init()
 			// initialize enemy and add to persistant
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
@@ -128,6 +137,7 @@ void GWorld::Init()
 			pEnemy->SetType(JUMPER);
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
 			break;
 		}
@@ -143,7 +153,90 @@ void GWorld::Init()
 			pEnemy->SetType(SHOOTER);
 			pEnemy->Init();
 			pEnemy->SetCollisionList();
+			pEnemy->ActivateGravity();
 			CTM->AddPersistantObject(pEnemy);
+			break;
+		}
+		case 'B':
+		{
+			// create SpeedBonbon
+			GItems* pBonbon = new GItems(
+				SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(30.0f, 15.0f),
+				"Texture/Items/T_SpeedBonbon.png"
+			);
+
+			// initialize Item and add to persistant
+			pBonbon->SetInWorld(true);
+			pBonbon->SetType(SPEEDBONBON);
+			pBonbon->SetColType(MOVE);
+			pBonbon->SetTag("SpeedBonbon");
+			CTM->AddPersistantObject(pBonbon);
+			break;
+		}
+		case 'N':
+		{
+			// create TimeFreezer
+			GItems* pWatch = new GItems(
+				SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(30.0f, 30.0f),
+				"Texture/Items/T_TimeFreezer.png"
+			);
+
+			// initialize Item and add to persistant
+			pWatch->SetInWorld(true);
+			pWatch->SetType(TIMEFREEZER);
+			pWatch->SetColType(NONE);
+			CTM->AddPersistantObject(pWatch);
+			break;
+
+		}
+		case 'K':
+		{
+			// create Button
+			GItems* pButton = new GItems(
+				SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(30.0f, 30.0f),
+				"Texture/Items/T_Button.png"
+			);
+
+			// initialize Item and add to persistant
+			pButton->SetInWorld(true);
+			pButton->SetType(BUTTON);
+			pButton->SetColType(NONE);
+			CTM->AddPersistantObject(pButton);
+			break;
+		}
+		case 'Z':
+		{
+			// create SleepSand
+			GItems* pSleepSand = new GItems(
+				SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(30.0f, 30.0f),
+				"Texture/Items/T_SleepSand.png"
+			);
+
+			// initialize Item and add to persistant
+			pSleepSand->SetInWorld(true);
+			pSleepSand->SetType(SLEEPSAND);
+			pSleepSand->SetColType(NONE);
+			CTM->AddPersistantObject(pSleepSand);
+			break;
+		}
+
+		// if enemy spwawn enemy SHOOTER
+		case 'C':
+		{
+			// create enemy
+			GBosses* pCBoss = new GBosses(SVector2(width * GConfig::s_BlockWidth, height * GConfig::s_BlockHeight - 50),
+				SVector2(GConfig::s_MoveEnemyWidth, GConfig::s_MoveEnemyHeight), "Texture/Enemy/T_MoveEnemy.png", 25);
+
+			// initialize enemy and add to persistant
+			pCBoss->SetType(CUTEULHU);
+			pCBoss->Init();
+			pCBoss->SetCollisionList();
+			pCBoss->ActivateGravity();
+			CTM->AddPersistantObject(pCBoss);
 			break;
 		}
 
@@ -167,6 +260,10 @@ void GWorld::Init()
 			width = 0;
 		}
 	}
+
+	// Add Timer to HUD
+	GTimer* pTimer = new GTimer(100, GAME->m_PArial, SRect(100, 50, 0, 0), SColor(255, 255, 255, 255));
+	CTM->AddSceneObject(pTimer);
 }
 #pragma endregion
 

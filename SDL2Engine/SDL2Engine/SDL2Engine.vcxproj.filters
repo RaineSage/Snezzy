@@ -68,6 +68,15 @@
     <ClCompile Include="TexturedEntity.cpp">
       <Filter>Engine\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Game\Object\Time/Health</Filter>
+    </ClCompile>
+    <ClCompile Include="Bosses.cpp">
+      <Filter>Game\Object\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Documents\Uni\SNEZZY\Engine\SDL2Engine\SDL2Engine\Items.cpp">
+      <Filter>Game\Object\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -144,6 +153,15 @@
     </Filter>
     <Filter Include="Engine\Entity">
       <UniqueIdentifier>{e4a6c05d-555f-4a99-8830-7e8da20ed4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Time/Health">
+      <UniqueIdentifier>{4e9622d2-e96c-4873-9279-7a5977bd84ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Bosses">
+      <UniqueIdentifier>{24be06a9-4187-44e8-af84-c99a43d92b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Items">
+      <UniqueIdentifier>{fde6a3b6-7e3e-48df-98e6-03fd1a0b311e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +263,18 @@
     </ClInclude>
     <ClInclude Include="EEnemyTypes.h">
       <Filter>Game\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Game\Object\Time/Health</Filter>
+    </ClInclude>
+    <ClInclude Include="Bosses.h">
+      <Filter>Game\Object\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Documents\Uni\SNEZZY\Engine\SDL2Engine\SDL2Engine\Items.h">
+      <Filter>Game\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Documents\Uni\SNEZZY\Engine\SDL2Engine\SDL2Engine\EItemTypes.h">
+      <Filter>Game\Object\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

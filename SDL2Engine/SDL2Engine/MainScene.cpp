@@ -18,8 +18,8 @@ void GMainScene::Load()
 	m_pWorld->Init();
 
 	// create music and start playing
-	m_pMusic = new CMusic("Audio/M_Background.mp3");
-	m_pMusic->Play(true);
+	//m_pMusic = new CMusic("Audio/M_Background.mp3");
+	//m_pMusic->Play(true);
 }
 
 // clean scene
